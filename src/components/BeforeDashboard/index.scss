@@ -1,7 +1,9 @@
 @import '~@payloadcms/ui/scss';
 
 .dashboard .before-dashboard {
-  margin-bottom: base(1.5);
+  margin: auto;
+  margin-bottom: base(0.5);
+  width: 60%;
 
   &__banner {
     & h4 {
@@ -21,4 +23,15 @@
   & a:hover {
     opacity: 0.85;
   }
+}
+
+.logo_container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 20px 0px;
+}
+
+.logo {
+  width: 200px;
 }

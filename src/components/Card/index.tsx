@@ -12,7 +12,7 @@ export const Card: React.FC<{
   alignItems?: 'center'
   className?: string
   doc?: Post
-  relationTo?: 'posts'
+  relationTo?: string
   showCategories?: boolean
   title?: string
 }> = (props) => {
@@ -35,9 +35,9 @@ export const Card: React.FC<{
       )}
       ref={card.ref}
     >
-      <div className="relative w-full ">
-        {!metaImage && <div className="">No image</div>}
-        {metaImage && typeof metaImage !== 'string' && <Media resource={metaImage} size="360px" />}
+      <div className="relative w-full h-[300px]">
+        {!metaImage && <div className="m-auto">No image</div>}
+        {metaImage && typeof metaImage !== 'string' && <Media resource={metaImage} size="360px" fill className='object-cover' imgClassName='object-cover' />}
       </div>
       <div className="p-4">
         {showCategories && hasCategories && (

@@ -56,15 +56,15 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
       <PageClient />
       <div className="container mb-16">
         <div className="prose dark:prose-invert max-w-none">
-          <h1 className="sr-only">Search</h1>
+          <h1 className="sr-only">Buscar</h1>
           <Search />
         </div>
       </div>
 
       {posts.totalDocs > 0 ? (
-        <CollectionArchive posts={posts.docs as unknown as Post[]} />
+        <CollectionArchive relationTo="posts" items={posts.docs as unknown as Post[]} showCardCategories={true}/>
       ) : (
-        <div className="container">No results found.</div>
+        <div className="container">No se encontraron resultados.</div>
       )}
     </div>
   )
@@ -72,6 +72,6 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
 
 export function generateMetadata(): Metadata {
   return {
-    title: `Payload Website Template Search`,
+    title: `Buscar | Distrito Joven`,
   }
 }

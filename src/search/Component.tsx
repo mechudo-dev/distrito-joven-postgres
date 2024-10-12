@@ -12,7 +12,7 @@ export const Search: React.FC = () => {
   const debouncedValue = useDebounce(value)
 
   useEffect(() => {
-    router.push(`/search${debouncedValue ? `?q=${debouncedValue}` : ''}`)
+    router.push(`/buscar${debouncedValue ? `?q=${debouncedValue}` : ''}`)
   }, [debouncedValue, router])
 
   return (
@@ -22,15 +22,15 @@ export const Search: React.FC = () => {
           e.preventDefault()
         }}
       >
-        <Label htmlFor="search" className="sr-only">
-          Search
+        <Label htmlFor="buscar" className="sr-only">
+          Buscar
         </Label>
         <Input
-          id="search"
+          id="buscar"
           onChange={(event) => {
             setValue(event.target.value)
           }}
-          placeholder="Search"
+          placeholder="Buscar"
         />
         <button type="submit" className="sr-only">
           submit

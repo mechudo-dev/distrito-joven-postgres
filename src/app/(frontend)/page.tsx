@@ -1,5 +1,25 @@
-import PageTemplate, { generateMetadata } from './[slug]/page'
+import type { Metadata } from 'next/types'
 
-export default PageTemplate
+import { Pagination } from '@/components/Pagination'
+import configPromise from '@payload-config'
+import { getPayloadHMR } from '@payloadcms/next/utilities'
+import React from 'react'
+import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel'
 
-export { generateMetadata }
+export const dynamic = 'force-static'
+export const revalidate = 600
+
+export default async function Page() {
+
+  return (
+    <div className="pt-24 pb-24">
+      
+    </div>
+  )
+}
+
+export function generateMetadata(): Metadata {
+  return {
+    title: `Distrito Joven`,
+  }
+}

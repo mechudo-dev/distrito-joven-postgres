@@ -53,6 +53,6 @@ export default async function Page() {
 
 export function generateMetadata(): Metadata {
   return {
-    title: `Posts`,
+    title: `Distrito Joven`,
   }
 }

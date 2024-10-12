@@ -32,6 +32,9 @@ import { Header } from './Header/config'
 import { revalidateRedirects } from './hooks/revalidateRedirects'
 import { GenerateTitle, GenerateURL } from '@payloadcms/plugin-seo/types'
 import { Page, Post } from 'src/payload-types'
+import { es } from '@payloadcms/translations/languages/es'
+import nodemailer from 'nodemailer'
+import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 
 import { searchFields } from '@/search/fieldOverrides'
 import { beforeSyncWithSearch } from '@/search/beforeSync'
@@ -40,7 +43,7 @@ const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 const generateTitle: GenerateTitle<Post | Page> = ({ doc }) => {
-  return doc?.title ? `${doc.title} | Payload Website Template` : 'Payload Website Template'
+  return doc?.title ? `${doc.title} | Distrito Joven` : 'Distrito Joven'
 }
 
 const generateURL: GenerateURL<Post | Page> = ({ doc }) => {
@@ -50,14 +53,32 @@ const generateURL: GenerateURL<Post | Page> = ({ doc }) => {
 }
 
 export default buildConfig({
+  i18n: {
+    fallbackLanguage: 'es',
+    supportedLanguages: { es },
+  },
   admin: {
     components: {
-      // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
-      // Feel free to delete this at any time. Simply remove the line below and the import `BeforeLogin` statement on line 15.
       beforeLogin: ['@/components/BeforeLogin'],
-      // The `BeforeDashboard` component renders the 'welcome' block that you see after logging into your admin panel.
-      // Feel free to delete this at any time. Simply remove the line below and the import `BeforeDashboard` statement on line 15.
       beforeDashboard: ['@/components/BeforeDashboard'],
+      graphics: {
+        Logo: '@/components/Logo/Logo',
+        Icon: '@/components/Icon/Icon',
+      },
+      beforeNavLinks: ['@/components/Logo/Logo'],
+      actions: ['@/components/UserName/UserName'],
+    },
+    meta: {
+      title: 'Admin Panel',
+      description: 'El administrador de Distrito Joven.',
+      icons: [
+        {
+          rel: 'icon',
+          type: 'image/svg',
+          url: '/favicon.svg',
+        },
+      ],
+      titleSuffix: '| Distrito Joven'
     },
     importMap: {
       baseDir: path.resolve(dirname),
@@ -85,6 +106,7 @@ export default buildConfig({
         },
       ],
     },
+    avatar: 'default'
   },
   // This config helps us configure global or default features that the other editors can inherit
   editor: lexicalEditor({
@@ -208,4 +230,21 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
+  email: nodemailerAdapter({
+    defaultFromAddress: 'nicolasdiazv1102@gmail.com',
+    defaultFromName: 'Distrito Joven',
+    // Any Nodemailer transport can be used
+    transport: nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port: 587,
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
+    }),
+  }),
+  cookiePrefix: 'distritoJoven',
+  indexSortableFields: true,
+  debug: true,
+  telemetry: false,
 })

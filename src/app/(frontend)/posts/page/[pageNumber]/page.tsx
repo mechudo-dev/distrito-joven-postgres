@@ -6,36 +6,22 @@ import { Pagination } from '@/components/Pagination'
 import configPromise from '@payload-config'
 import { getPayloadHMR } from '@payloadcms/next/utilities'
 import React from 'react'
-import PageClient from './page.client'
-import { notFound } from 'next/navigation'
 
+export const dynamic = 'force-static'
 export const revalidate = 600
 
-type Args = {
-  params: Promise<{
-    pageNumber: string
-  }>
-}
-
-export default async function Page({ params: paramsPromise }: Args) {
-  const { pageNumber } = await paramsPromise
+export default async function Page({ params: { pageNumber = 2 } }) {
   const payload = await getPayloadHMR({ config: configPromise })
-
-  const sanitizedPageNumber = Number(pageNumber)
-
-  if (!Number.isInteger(sanitizedPageNumber)) notFound()
 
   const posts = await payload.find({
     collection: 'posts',
     depth: 1,
-    limit: 12,
-    page: sanitizedPageNumber,
-    overrideAccess: false,
+    limit: 6,
+    page: pageNumber,
   })
 
   return (
     <div className="pt-24 pb-24">
-      <PageClient />
       <div className="container mb-16">
         <div className="prose dark:prose-invert max-w-none">
           <h1>Posts</h1>
@@ -46,26 +32,25 @@ export default async function Page({ params: paramsPromise }: Args) {
         <PageRange
           collection="posts"
           currentPage={posts.page}
-          limit={12}
+          limit={6}
           totalDocs={posts.totalDocs}
         />
       </div>
 
-      <CollectionArchive posts={posts.docs} />
+      <CollectionArchive relationTo="posts" items={posts.docs} showCardCategories={true}  />
 
       <div className="container">
         {posts.totalPages > 1 && posts.page && (
-          <Pagination page={posts.page} totalPages={posts.totalPages} />
+          <Pagination pageName='posts' page={posts.page} totalPages={posts.totalPages} />
         )}
       </div>
     </div>
   )
 }
 
-export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
-  const { pageNumber } = await paramsPromise
+export function generateMetadata({ params: { pageNumber = 2 } }): Metadata {
   return {
-    title: `Payload Website Template Posts Page ${pageNumber || ''}`,
+    title: `Post Página N° ${pageNumber} | Distrito Joven `,
   }
 }
 
@@ -75,14 +60,12 @@ export async function generateStaticParams() {
     collection: 'posts',
     depth: 0,
     limit: 10,
-    draft: false,
-    overrideAccess: false,
   })
 
-  const pages: { pageNumber: string }[] = []
+  const pages: number[] = []
 
   for (let i = 1; i <= posts.totalPages; i++) {
-    pages.push({ pageNumber: String(i) })
+    pages.push(i)
   }
 
   return pages
