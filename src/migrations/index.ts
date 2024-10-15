@@ -5,6 +5,7 @@ import * as migration_20241015_153206_solving_document_number from './20241015_1
 import * as migration_20241015_153334_solving_document_number_2 from './20241015_153334_solving_document_number_2';
 import * as migration_20241015_155758_adding from './20241015_155758_adding';
 import * as migration_20241015_205342_adding_services_collection from './20241015_205342_adding_services_collection';
+import * as migration_20241015_230413_adding from './20241015_230413_adding';
 
 export const migrations = [
   {
@@ -40,6 +41,11 @@ export const migrations = [
   {
     up: migration_20241015_205342_adding_services_collection.up,
     down: migration_20241015_205342_adding_services_collection.down,
-    name: '20241015_205342_adding_services_collection'
+    name: '20241015_205342_adding_services_collection',
+  },
+  {
+    up: migration_20241015_230413_adding.up,
+    down: migration_20241015_230413_adding.down,
+    name: '20241015_230413_adding'
   },
 ];

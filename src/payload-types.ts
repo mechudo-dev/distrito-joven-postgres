@@ -18,6 +18,7 @@ export interface Config {
     users: User;
     localities: Locality;
     services: Service;
+    operationUnits: OperationUnit;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -651,6 +652,68 @@ export interface Service {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "operationUnits".
+ */
+export interface OperationUnit {
+  id: number;
+  title: string;
+  meta?: {
+    title?: string | null;
+    image?: (number | null) | Media;
+    description?: string | null;
+  };
+  Servicio?: (number | null) | Service;
+  Localidad?: (number | null) | Locality;
+  neighborhood?: string | null;
+  address?: string | null;
+  longitude?: number | null;
+  latitude?: number | null;
+  description: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  workshops?:
+    | {
+        name: string;
+        schedules?:
+          | {
+              day?: ('Lunes' | 'Martes' | 'Miercoles' | 'Jueves' | 'Viernes' | 'Sabado' | 'Domingo') | null;
+              startTime?: string | null;
+              endTime?: string | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  publishedAt?: string | null;
+  authors?: (number | User)[] | null;
+  populatedAuthors?:
+    | {
+        id?: string | null;
+        name?: string | null;
+      }[]
+    | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  isVisible?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -751,6 +814,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'services';
         value: number | Service;
+      } | null)
+    | ({
+        relationTo: 'operationUnits';
+        value: number | OperationUnit;
       } | null)
     | ({
         relationTo: 'redirects';
