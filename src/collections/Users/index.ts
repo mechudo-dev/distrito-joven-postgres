@@ -23,10 +23,10 @@ const Users: CollectionConfig = {
     update: authenticated,
   },
   admin: {
-    defaultColumns: ['id', 'documentNumber', 'fullName', 'role'],
+    defaultColumns: ['documentNumber', 'fullName', 'role', 'isVisible'],
     useAsTitle: 'fullName',
     description: '',
-    listSearchableFields: ['id', 'documentNumber', 'fullName', 'role'],
+    listSearchableFields: ['documentNumber', 'fullName', 'role'],
   },
   auth: true,
   fields: [

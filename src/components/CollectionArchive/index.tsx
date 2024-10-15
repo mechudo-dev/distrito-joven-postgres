@@ -7,12 +7,12 @@ import { Card } from '@/components/Card'
 
 export type Props = {
   items: Post[] | OperationUnit[]
-  relationTo: string
+  prefix: string
   showCardCategories: boolean
 }
 
 export const CollectionArchive: React.FC<Props> = (props) => {
-  const { items, relationTo, showCardCategories } = props
+  const { items, prefix, showCardCategories } = props
 
   return (
     <div className={cn('container')}>
@@ -22,7 +22,7 @@ export const CollectionArchive: React.FC<Props> = (props) => {
             if (typeof result === 'object' && result !== null) {
               return (
                 <div className="col-span-4" key={index}>
-                  <Card className="h-full" doc={result} relationTo={relationTo} showCategories={showCardCategories} />
+                  <Card className="h-full" doc={result} prefix={prefix} showCategories={showCardCategories} />
                 </div>
               )
             }
