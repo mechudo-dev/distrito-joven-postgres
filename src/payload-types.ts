@@ -16,6 +16,7 @@ export interface Config {
     media: Media;
     categories: Category;
     users: User;
+    localities: Locality;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -338,7 +339,60 @@ export interface Post {
  */
 export interface User {
   id: number;
-  name?: string | null;
+  role: 'user' | 'admin' | 'superadmin';
+  firstName: string;
+  otherNames?: string | null;
+  firstLastName: string;
+  secondLastName: string;
+  fullName?: string | null;
+  documentType:
+    | 'Tarjeta de Identidad'
+    | 'Cédula de ciudadanía'
+    | 'Cédula de extranjería'
+    | 'Permiso especial de permanencia';
+  docNumber: number;
+  dateOfBirth?: string | null;
+  gender?: ('Mujer' | 'Hombre' | 'Intersexual' | 'Prefiero no responder') | null;
+  sexualOrientation?: ('Heterosexual' | 'Homosexual' | 'Bisexual' | 'Otra' | 'Prefiero no responder') | null;
+  disability?:
+    | (
+        | 'Ninguna'
+        | 'Visual'
+        | 'Auditiva'
+        | 'Cognitiva'
+        | 'Física'
+        | 'Psicosocial'
+        | 'Sordoceguera'
+        | 'Múltiple'
+        | 'Otra'
+      )
+    | null;
+  ethnicity?:
+    | (
+        | 'Ninguna'
+        | 'Pueblo Rrom – Gitano'
+        | 'Pueblo y/o comunidad indígena'
+        | 'Comunidades negras'
+        | 'Población afrodescendiente'
+        | 'Comunidades palenqueras'
+        | 'Pueblo raizal'
+      )
+    | null;
+  phoneNumber?: number | null;
+  socialMedia?:
+    | {
+        type?: ('Tiktok' | 'Facebook' | 'Instagram' | 'X' | 'LinkedIn' | 'Pinterest' | 'Página Web') | null;
+        socialMediaURL?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  locality?: (number | null) | Locality;
+  neighborhood?: string | null;
+  address?: string | null;
+  description?: string | null;
+  media?: (number | null) | Media;
+  receiveEmails?: boolean | null;
+  isVisible?: boolean | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -349,6 +403,18 @@ export interface User {
   loginAttempts?: number | null;
   lockUntil?: string | null;
   password?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "localities".
+ */
+export interface Locality {
+  id: number;
+  code?: number | null;
+  name?: string | null;
+  isVisible?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -634,6 +700,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'users';
         value: number | User;
+      } | null)
+    | ({
+        relationTo: 'localities';
+        value: number | Locality;
       } | null)
     | ({
         relationTo: 'redirects';
