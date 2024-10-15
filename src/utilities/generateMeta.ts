@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
 
-import type { Page, Post } from '../payload-types'
+import type { Page, Post, Service } from '../payload-types'
 
 import { mergeOpenGraph } from './mergeOpenGraph'
 
-export const generateMeta = async (args: { doc: Page | Post }): Promise<Metadata> => {
+export const generateMeta = async (args: { doc: Page | Post | Service }): Promise<Metadata> => {
   const { doc } = args || {}
 
   const ogImage =
@@ -23,10 +23,10 @@ export const generateMeta = async (args: { doc: Page | Post }): Promise<Metadata
       description: doc?.meta?.description || '',
       images: ogImage
         ? [
-            {
-              url: ogImage,
-            },
-          ]
+          {
+            url: ogImage,
+          },
+        ]
         : undefined,
       title,
       url: Array.isArray(doc?.slug) ? doc?.slug.join('/') : '/',

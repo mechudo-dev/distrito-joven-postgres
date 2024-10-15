@@ -17,6 +17,7 @@ export interface Config {
     categories: Category;
     users: User;
     localities: Locality;
+    services: Service;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -608,6 +609,48 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "services".
+ */
+export interface Service {
+  id: number;
+  title: string;
+  meta?: {
+    title?: string | null;
+    image?: (number | null) | Media;
+    description?: string | null;
+  };
+  description: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  publishedAt?: string | null;
+  authors?: (number | User)[] | null;
+  populatedAuthors?:
+    | {
+        id?: string | null;
+        name?: string | null;
+      }[]
+    | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  isVisible?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -704,6 +747,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'localities';
         value: number | Locality;
+      } | null)
+    | ({
+        relationTo: 'services';
+        value: number | Service;
       } | null)
     | ({
         relationTo: 'redirects';

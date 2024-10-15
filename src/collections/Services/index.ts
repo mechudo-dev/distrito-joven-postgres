@@ -27,21 +27,26 @@ import {
 } from '@payloadcms/plugin-seo/fields'
 import { slugField } from '@/fields/slug'
 
-export const Posts: CollectionConfig = {
-  slug: 'posts',
+export const Services: CollectionConfig = {
+  slug: 'services',
+  labels: {
+    singular: 'Servicio',
+    plural: 'Servicios'
+  },
   access: {
     create: authenticated,
     delete: authenticated,
     read: authenticatedOrPublished,
     update: authenticated,
   },
+  defaultSort: 'updatedAt',
   admin: {
     defaultColumns: ['title', 'slug', 'updatedAt'],
     livePreview: {
       url: ({ data }) => {
         const path = generatePreviewPath({
-          slug: typeof data?.slug === 'string' ? data.slug : '',
-          collection: 'posts',
+          slug: `/${typeof data?.slug === 'string' ? data.slug : ''}`,
+          collection: 'services',
         })
 
         return `${process.env.NEXT_PUBLIC_SERVER_URL}${path}`
@@ -49,76 +54,27 @@ export const Posts: CollectionConfig = {
     },
     preview: (data) => {
       const path = generatePreviewPath({
-        slug: typeof data?.slug === 'string' ? data.slug : '',
-        collection: 'posts',
+        slug: `/${typeof data?.slug === 'string' ? data.slug : ''}`,
+        collection: 'services',
       })
 
       return `${process.env.NEXT_PUBLIC_SERVER_URL}${path}`
     },
     useAsTitle: 'title',
+    description: '',
+    listSearchableFields: ['title'],
   },
   fields: [
     {
       name: 'title',
+      label: 'Nombre',
       type: 'text',
       required: true,
+      unique: true,
     },
     {
       type: 'tabs',
       tabs: [
-        {
-          fields: [
-            {
-              name: 'content',
-              type: 'richText',
-              editor: lexicalEditor({
-                features: ({ rootFeatures }) => {
-                  return [
-                    ...rootFeatures,
-                    HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-                    BlocksFeature({ blocks: [Banner, Code, MediaBlock] }),
-                    FixedToolbarFeature(),
-                    InlineToolbarFeature(),
-                    HorizontalRuleFeature(),
-                  ]
-                },
-              }),
-              label: false,
-              required: true,
-            },
-          ],
-          label: 'Content',
-        },
-        {
-          fields: [
-            {
-              name: 'relatedPosts',
-              type: 'relationship',
-              admin: {
-                position: 'sidebar',
-              },
-              filterOptions: ({ id }) => {
-                return {
-                  id: {
-                    not_in: [id],
-                  },
-                }
-              },
-              hasMany: true,
-              relationTo: 'posts',
-            },
-            {
-              name: 'categories',
-              type: 'relationship',
-              admin: {
-                position: 'sidebar',
-              },
-              hasMany: true,
-              relationTo: 'categories',
-            },
-          ],
-          label: 'Meta',
-        },
         {
           name: 'meta',
           label: 'SEO',
@@ -146,6 +102,50 @@ export const Posts: CollectionConfig = {
             }),
           ],
         },
+        {
+          fields: [
+            {
+              name: 'description',
+              label: 'Descripción',
+              type: 'richText',
+              editor: lexicalEditor({
+                features: ({ rootFeatures }) => {
+                  return [
+                    ...rootFeatures,
+                    HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
+                    BlocksFeature({ blocks: [Banner, Code, MediaBlock] }),
+                    FixedToolbarFeature(),
+                    InlineToolbarFeature(),
+                    HorizontalRuleFeature(),
+                  ]
+                },
+              }),
+              required: true,
+            },
+          ],
+          label: 'Content',
+        },
+        {
+          fields: [
+            // {
+            //   name: 'operationUnits',
+            //   type: 'relationship',
+            //   hasMany: true,
+            //   relationTo: 'operationUnits',
+            // },
+            // {
+            //   name: 'categories',
+            //   type: 'relationship',
+            //   admin: {
+            //     position: 'sidebar',
+            //   },
+            //   hasMany: true,
+            //   relationTo: 'categories',
+            // },
+          ],
+          label: 'Meta',
+        },
+
       ],
     },
     {
@@ -170,6 +170,7 @@ export const Posts: CollectionConfig = {
     },
     {
       name: 'authors',
+      label: 'Autores',
       type: 'relationship',
       admin: {
         position: 'sidebar',
@@ -202,6 +203,15 @@ export const Posts: CollectionConfig = {
       ],
     },
     ...slugField(),
+    {
+      name: 'isVisible',
+      label: '¿Es visible?',
+      type: 'checkbox',
+      defaultValue: true,
+      admin: {
+        position: 'sidebar'
+      }
+    },
   ],
   hooks: {
     afterChange: [revalidatePost],

@@ -13,8 +13,8 @@ export const revalidate = 600
 export default async function Page() {
   const payload = await getPayloadHMR({ config: configPromise })
 
-  const posts = await payload.find({
-    collection: 'posts',
+  const services = await payload.find({
+    collection: 'services',
     depth: 1,
     limit: 6,
   })
@@ -23,28 +23,28 @@ export default async function Page() {
     <div className="pt-24 pb-24">
       <div className="container mb-16">
         <div className="prose dark:prose-invert max-w-none">
-          <h1>Posts</h1>
+          <h1>Servicios</h1>
         </div>
       </div>
 
       <div className="container mb-8">
         <PageRange
-          collection="posts"
-          currentPage={posts.page}
+          collection="services"
+          currentPage={services.page}
           limit={6}
-          totalDocs={posts.totalDocs}
+          totalDocs={services.totalDocs}
           collectionLabels={{
-            singular: 'Post',
-            plural: 'Posts',
+            singular: 'Servicio',
+            plural: 'Services',
           }}
         />
       </div>
 
-      <CollectionArchive relationTo="posts" items={posts.docs} showCardCategories={true} />
+      <CollectionArchive prefix="servicios" items={services.docs} showCardCategories={true} />
 
       <div className="container">
-        {posts.totalPages > 1 && posts.page && (
-          <Pagination pageName='posts' page={posts.page} totalPages={posts.totalPages} />
+        {services.totalPages > 1 && services.page && (
+          <Pagination pageName='services' page={services.page} totalPages={services.totalPages} />
         )}
       </div>
     </div>
@@ -53,6 +53,6 @@ export default async function Page() {
 
 export function generateMetadata(): Metadata {
   return {
-    title: `Distrito Joven`,
+    title: `Servicios | Distrito Joven`,
   }
 }
