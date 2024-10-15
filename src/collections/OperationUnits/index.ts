@@ -27,11 +27,11 @@ import {
 } from '@payloadcms/plugin-seo/fields'
 import { slugField } from '@/fields/slug'
 
-export const Services: CollectionConfig = {
-  slug: 'services',
+export const OperationUnits: CollectionConfig = {
+  slug: 'operationUnits',
   labels: {
-    singular: 'Servicio',
-    plural: 'Servicios'
+    singular: 'Unidad Operativa',
+    plural: 'Unidades Operativas'
   },
   access: {
     create: authenticated,
@@ -103,6 +103,64 @@ export const Services: CollectionConfig = {
           ],
         },
         {
+          label: 'Información Principal',
+          fields: [
+            {
+              type: 'relationship',
+              relationTo: 'services',
+              name: 'Servicio',
+              hasMany: false,
+            },
+            {
+              type: 'collapsible',
+              label: 'Ubicación',
+              required: true,
+              admin: {
+                initCollapsed: true,
+              },
+              fields: [
+                {
+                  type: 'row',
+                  fields: [
+                    {
+                      type: 'relationship',
+                      relationTo: 'localities',
+                      hasMany: false,
+                      name: 'Localidad'
+                    },
+                    {
+                      type: 'text',
+                      name: 'neighborhood',
+                      label: 'Barrio',
+                    },
+                  ]
+                },
+                {
+                  type: 'text',
+                  name: 'address',
+                  label: 'Dirección'
+                },
+                {
+                  type: 'row',
+                  fields: [
+                    {
+                      type: 'number',
+                      name: 'longitude',
+                      label: 'Longitud'
+                    },
+                    {
+                      type: 'number',
+                      name: 'latitude',
+                      label: 'Latitud'
+                    }
+                  ]
+                },
+
+              ]
+            }
+          ]
+        },
+        {
           label: 'Contenido',
           fields: [
             {
@@ -122,6 +180,95 @@ export const Services: CollectionConfig = {
                 },
               }),
               required: true,
+            },
+          ],
+        },
+        {
+          label: 'Talleres',
+          fields: [
+            {
+              type: 'array',
+              name: 'workshops',
+              label: 'Talleres',
+              fields: [
+                {
+                  type: 'text',
+                  name: 'name',
+                  label: 'Nombre',
+                  required: true
+                },
+                {
+                  type: 'array',
+                  name: 'schedules',
+                  label: 'Horarios',
+                  fields: [
+                    {
+                      type: 'select',
+                      name: 'day',
+                      label: 'Día',
+                      options: [
+                        {
+                          label: 'Lunes',
+                          value: 'Lunes'
+                        },
+                        {
+                          label: 'Martes',
+                          value: 'Martes'
+                        },
+                        {
+                          label: 'Miercoles',
+                          value: 'Miercoles'
+                        },
+                        {
+                          label: 'Jueves',
+                          value: 'Jueves'
+                        },
+                        {
+                          label: 'Viernes',
+                          value: 'Viernes'
+                        },
+                        {
+                          label: 'Sabado',
+                          value: 'Sabado'
+                        },
+                        {
+                          label: 'Domingo',
+                          value: 'Domingo'
+                        },
+                      ]
+                    },
+                    {
+                      type: 'row',
+                      fields: [
+                        {
+                          type: 'date',
+                          name: 'startTime',
+                          label: 'Hora de Inicio',
+                          admin: {
+                            date: {
+                              pickerAppearance: 'timeOnly',
+                              displayFormat: 'h:mm a',
+                              timeIntervals: 15
+                            },
+                          },
+                        },
+                        {
+                          type: 'date',
+                          name: 'endTime',
+                          label: 'Hora de Finalización',
+                          admin: {
+                            date: {
+                              pickerAppearance: 'timeOnly',
+                              displayFormat: 'h:mm a',
+                              timeIntervals: 15
+                            },
+                          },
+                        }
+                      ]
+                    },
+                  ]
+                }
+              ]
             },
           ],
         },
