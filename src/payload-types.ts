@@ -355,11 +355,11 @@ export interface User {
   fullName?: string | null;
   documentType: number | DocumentType;
   documentNumber: number;
-  dateOfBirth?: string | null;
-  sexualOrientation?: (number | null) | SexualOrientation;
-  gender?: (number | null) | Gender;
-  ethnicity?: (number | null) | Ethnicity;
-  disability?: (number | Disability)[] | null;
+  dateOfBirth: string;
+  sexualOrientation: number | SexualOrientation;
+  gender: number | Gender;
+  ethnicity: number | Ethnicity;
+  disability: (number | Disability)[];
   phoneNumber?: number | null;
   socialMedia?:
     | {
@@ -368,13 +368,13 @@ export interface User {
         id?: string | null;
       }[]
     | null;
-  locality?: (number | null) | Locality;
-  neighborhood?: string | null;
-  address?: string | null;
+  locality: number | Locality;
+  neighborhood: string;
+  address: string;
   description?: string | null;
-  receiveEmails?: boolean | null;
+  receiveEmails: boolean;
   media?: (number | null) | Media;
-  isVisible?: boolean | null;
+  isVisible: boolean;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -682,7 +682,7 @@ export interface Service {
     [k: string]: unknown;
   };
   publishedAt?: string | null;
-  authors?: (number | User)[] | null;
+  authors: (number | User)[];
   populatedAuthors?:
     | {
         id?: string | null;
@@ -708,12 +708,12 @@ export interface OperationUnit {
     image?: (number | null) | Media;
     description?: string | null;
   };
-  Servicio?: (number | null) | Service;
-  Localidad?: (number | null) | Locality;
-  neighborhood?: string | null;
-  address?: string | null;
-  longitude?: number | null;
-  latitude?: number | null;
+  Servicio: number | Service;
+  Localidad: number | Locality;
+  neighborhood: string;
+  address: string;
+  longitude: number;
+  latitude: number;
   description: {
     root: {
       type: string;
@@ -734,9 +734,9 @@ export interface OperationUnit {
         name: string;
         schedules?:
           | {
-              day?: ('Lunes' | 'Martes' | 'Miercoles' | 'Jueves' | 'Viernes' | 'Sabado' | 'Domingo') | null;
-              startTime?: string | null;
-              endTime?: string | null;
+              day: 'Lunes' | 'Martes' | 'Miercoles' | 'Jueves' | 'Viernes' | 'Sabado' | 'Domingo';
+              startTime: string;
+              endTime: string;
               id?: string | null;
             }[]
           | null;
@@ -744,7 +744,7 @@ export interface OperationUnit {
       }[]
     | null;
   publishedAt?: string | null;
-  authors?: (number | User)[] | null;
+  authors: (number | User)[];
   populatedAuthors?:
     | {
         id?: string | null;
