@@ -110,11 +110,11 @@ export const OperationUnits: CollectionConfig = {
               relationTo: 'services',
               name: 'Servicio',
               hasMany: false,
+              required: true,
             },
             {
               type: 'collapsible',
               label: 'Ubicación',
-              required: true,
               admin: {
                 initCollapsed: true,
               },
@@ -125,20 +125,23 @@ export const OperationUnits: CollectionConfig = {
                     {
                       type: 'relationship',
                       relationTo: 'localities',
+                      name: 'Localidad',
                       hasMany: false,
-                      name: 'Localidad'
+                      required: true,
                     },
                     {
                       type: 'text',
                       name: 'neighborhood',
                       label: 'Barrio',
+                      required: true,
                     },
                   ]
                 },
                 {
                   type: 'text',
                   name: 'address',
-                  label: 'Dirección'
+                  label: 'Dirección',
+                  required: true,
                 },
                 {
                   type: 'row',
@@ -146,16 +149,17 @@ export const OperationUnits: CollectionConfig = {
                     {
                       type: 'number',
                       name: 'longitude',
-                      label: 'Longitud'
+                      label: 'Longitud',
+                      required: true,
                     },
                     {
                       type: 'number',
                       name: 'latitude',
-                      label: 'Latitud'
+                      label: 'Latitud',
+                      required: true,
                     }
                   ]
                 },
-
               ]
             }
           ]
@@ -206,6 +210,7 @@ export const OperationUnits: CollectionConfig = {
                       type: 'select',
                       name: 'day',
                       label: 'Día',
+                      required: true,
                       options: [
                         {
                           label: 'Lunes',
@@ -244,6 +249,7 @@ export const OperationUnits: CollectionConfig = {
                           type: 'date',
                           name: 'startTime',
                           label: 'Hora de Inicio',
+                          required: true,
                           admin: {
                             date: {
                               pickerAppearance: 'timeOnly',
@@ -256,6 +262,7 @@ export const OperationUnits: CollectionConfig = {
                           type: 'date',
                           name: 'endTime',
                           label: 'Hora de Finalización',
+                          required: true,
                           admin: {
                             date: {
                               pickerAppearance: 'timeOnly',
@@ -301,6 +308,7 @@ export const OperationUnits: CollectionConfig = {
       admin: {
         position: 'sidebar',
       },
+      required: true,
       hasMany: true,
       relationTo: 'users',
     },
