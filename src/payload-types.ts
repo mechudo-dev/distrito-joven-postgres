@@ -19,6 +19,12 @@ export interface Config {
     localities: Locality;
     services: Service;
     operationUnits: OperationUnit;
+    documentTypes: DocumentType;
+    genders: Gender;
+    sexualOrientations: SexualOrientation;
+    disabilities: Disability;
+    ethnicities: Ethnicity;
+    socialMediaTypes: SocialMediaType;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -347,43 +353,17 @@ export interface User {
   firstLastName: string;
   secondLastName: string;
   fullName?: string | null;
-  documentType:
-    | 'Tarjeta de Identidad'
-    | 'Cédula de ciudadanía'
-    | 'Cédula de extranjería'
-    | 'Permiso especial de permanencia';
-  docNumber: number;
+  documentType: number | DocumentType;
+  documentNumber: number;
   dateOfBirth?: string | null;
-  gender?: ('Mujer' | 'Hombre' | 'Intersexual' | 'Prefiero no responder') | null;
-  sexualOrientation?: ('Heterosexual' | 'Homosexual' | 'Bisexual' | 'Otra' | 'Prefiero no responder') | null;
-  disability?:
-    | (
-        | 'Ninguna'
-        | 'Visual'
-        | 'Auditiva'
-        | 'Cognitiva'
-        | 'Física'
-        | 'Psicosocial'
-        | 'Sordoceguera'
-        | 'Múltiple'
-        | 'Otra'
-      )
-    | null;
-  ethnicity?:
-    | (
-        | 'Ninguna'
-        | 'Pueblo Rrom – Gitano'
-        | 'Pueblo y/o comunidad indígena'
-        | 'Comunidades negras'
-        | 'Población afrodescendiente'
-        | 'Comunidades palenqueras'
-        | 'Pueblo raizal'
-      )
-    | null;
+  sexualOrientation?: (number | null) | SexualOrientation;
+  gender?: (number | null) | Gender;
+  ethnicity?: (number | null) | Ethnicity;
+  disability?: (number | Disability)[] | null;
   phoneNumber?: number | null;
   socialMedia?:
     | {
-        type?: ('Tiktok' | 'Facebook' | 'Instagram' | 'X' | 'LinkedIn' | 'Pinterest' | 'Página Web') | null;
+        socialMediaType?: (number | null) | SocialMediaType;
         socialMediaURL?: string | null;
         id?: string | null;
       }[]
@@ -392,8 +372,8 @@ export interface User {
   neighborhood?: string | null;
   address?: string | null;
   description?: string | null;
-  media?: (number | null) | Media;
   receiveEmails?: boolean | null;
+  media?: (number | null) | Media;
   isVisible?: boolean | null;
   updatedAt: string;
   createdAt: string;
@@ -405,6 +385,72 @@ export interface User {
   loginAttempts?: number | null;
   lockUntil?: string | null;
   password?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "documentTypes".
+ */
+export interface DocumentType {
+  id: number;
+  documentType: string;
+  isVisible?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sexualOrientations".
+ */
+export interface SexualOrientation {
+  id: number;
+  sexualOrientation: string;
+  isVisible?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "genders".
+ */
+export interface Gender {
+  id: number;
+  gender: string;
+  isVisible?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ethnicities".
+ */
+export interface Ethnicity {
+  id: number;
+  ethnicity: string;
+  isVisible?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "disabilities".
+ */
+export interface Disability {
+  id: number;
+  disability: string;
+  isVisible?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "socialMediaTypes".
+ */
+export interface SocialMediaType {
+  id: number;
+  socialMediaType: string;
+  isVisible?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -818,6 +864,30 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'operationUnits';
         value: number | OperationUnit;
+      } | null)
+    | ({
+        relationTo: 'documentTypes';
+        value: number | DocumentType;
+      } | null)
+    | ({
+        relationTo: 'genders';
+        value: number | Gender;
+      } | null)
+    | ({
+        relationTo: 'sexualOrientations';
+        value: number | SexualOrientation;
+      } | null)
+    | ({
+        relationTo: 'disabilities';
+        value: number | Disability;
+      } | null)
+    | ({
+        relationTo: 'ethnicities';
+        value: number | Ethnicity;
+      } | null)
+    | ({
+        relationTo: 'socialMediaTypes';
+        value: number | SocialMediaType;
       } | null)
     | ({
         relationTo: 'redirects';
