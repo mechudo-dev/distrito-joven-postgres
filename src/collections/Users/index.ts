@@ -27,6 +27,7 @@ const Users: CollectionConfig = {
     useAsTitle: 'fullName',
     description: '',
     listSearchableFields: ['documentNumber', 'fullName', 'role'],
+    group: 'Usuarios'
   },
   auth: true,
   fields: [
@@ -36,6 +37,9 @@ const Users: CollectionConfig = {
       type: 'select',
       required: true,
       defaultValue: 'user',
+      admin: {
+        position: 'sidebar'
+      },
       options: [
         {
           label: 'Usuario',
@@ -94,7 +98,6 @@ const Users: CollectionConfig = {
                 },
               ],
             },
-            // virtual field (not storaged at DB)
             {
               name: 'fullName',
               label: 'Nombre Completo',
@@ -122,32 +125,15 @@ const Users: CollectionConfig = {
               type: 'row',
               fields: [
                 {
+                  type: 'relationship',
+                  relationTo: 'documentTypes',
                   name: 'documentType',
                   label: 'Tipo de Documento',
-                  type: 'select',
-                  defaultValue: 'Tarjeta de Identidad',
+                  hasMany: false,
                   required: true,
-                  options: [
-                    {
-                      label: 'Tarjeta de Identidad',
-                      value: 'Tarjeta de Identidad'
-                    },
-                    {
-                      label: 'Cédula de ciudadanía',
-                      value: 'Cédula de ciudadanía'
-                    },
-                    {
-                      label: 'Cédula de extranjería',
-                      value: 'Cédula de extranjería',
-                    },
-                    {
-                      label: 'Cédula de extranjería',
-                      value: 'Permiso especial de permanencia',
-                    }
-                  ],
                 },
                 {
-                  name: 'docNumber',
+                  name: 'documentNumber',
                   label: 'Número de Documento',
                   type: 'number',
                   required: true,
@@ -159,136 +145,51 @@ const Users: CollectionConfig = {
               name: 'dateOfBirth',
               label: 'Fecha de Nacimiento',
               type: 'date',
-            },
-            {
-              name: 'gender',
-              label: 'Sexo',
-              type: 'select',
-              options: [
-                {
-                  label: 'Mujer',
-                  value: 'Mujer'
-                },
-                {
-                  label: 'Hombre',
-                  value: 'Hombre'
-                },
-                {
-                  label: 'Intersexual',
-                  value: 'Intersexual',
-                },
-                {
-                  label: 'Prefiero no responder',
-                  value: 'Prefiero no responder',
+              admin: {
+                date: {
+                  maxDate: new Date()
                 }
-              ],
+              }
             },
             {
-              name: 'sexualOrientation',
-              label: 'Orientación Sexual',
-              type: 'select',
-              options: [
+              type: 'row',
+              fields: [
                 {
-                  label: 'Heterosexual',
-                  value: 'Heterosexual'
+                  type: 'relationship',
+                  relationTo: 'sexualOrientations',
+                  name: 'sexualOrientation',
+                  label: 'Orientación Sexual',
+                  hasMany: false,
                 },
                 {
-                  label: 'Homosexual',
-                  value: 'Homosexual'
+                  type: 'relationship',
+                  relationTo: 'genders',
+                  name: 'gender',
+                  label: 'Sexo',
+                  hasMany: false,
                 },
-                {
-                  label: 'Bisexual',
-                  value: 'Bisexual',
-                },
-                {
-                  label: 'Otra',
-                  value: 'Otra',
-                },
-                {
-                  label: 'Prefiero no responder',
-                  value: 'Prefiero no responder',
-                },
-              ],
+              ]
             },
             {
-              name: 'disability',
-              label: 'Discapacidad',
-              type: 'select',
-              defaultValue: 'Ninguna',
-              options: [
+              type: 'row',
+              fields: [
                 {
-                  label: 'Ninguna',
-                  value: 'Ninguna'
+                  type: 'relationship',
+                  relationTo: 'ethnicities',
+                  name: 'ethnicity',
+                  label: 'Etnia',
+                  defaultValue: 'Ninguna',
+                  hasMany: false,
                 },
                 {
-                  label: 'Visual',
-                  value: 'Visual'
+                  type: 'relationship',
+                  relationTo: 'disabilities',
+                  name: 'disability',
+                  label: 'Discapacidad',
+                  defaultValue: 'Ninguna',
+                  hasMany: true
                 },
-                {
-                  label: 'Auditiva',
-                  value: 'Auditiva',
-                },
-                {
-                  label: 'Cognitiva',
-                  value: 'Cognitiva',
-                },
-                {
-                  label: 'Física',
-                  value: 'Física',
-                },
-                {
-                  label: 'Psicosocial',
-                  value: 'Psicosocial',
-                },
-                {
-                  label: 'Sordoceguera',
-                  value: 'Sordoceguera',
-                },
-                {
-                  label: 'Múltiple',
-                  value: 'Múltiple',
-                },
-                {
-                  label: 'Otra',
-                  value: 'Otra',
-                },
-              ],
-            },
-            {
-              name: 'ethnicity',
-              label: 'Etnia ',
-              type: 'select',
-              defaultValue: 'Ninguna',
-              options: [
-                {
-                  label: 'Ninguna',
-                  value: 'Ninguna'
-                },
-                {
-                  label: 'Pueblo Rrom – Gitano',
-                  value: 'Pueblo Rrom – Gitano'
-                },
-                {
-                  label: 'Pueblo y/o comunidad indígena',
-                  value: 'Pueblo y/o comunidad indígena',
-                },
-                {
-                  label: 'Comunidades negras',
-                  value: 'Comunidades negras',
-                },
-                {
-                  label: 'Población afrodescendiente',
-                  value: 'Población afrodescendiente',
-                },
-                {
-                  label: 'Comunidades palenqueras',
-                  value: 'Comunidades palenqueras',
-                },
-                {
-                  label: 'Pueblo raizal',
-                  value: 'Pueblo raizal',
-                },
-              ],
+              ]
             },
           ],
         },
@@ -310,39 +211,11 @@ const Users: CollectionConfig = {
                   type: 'row',
                   fields: [
                     {
-                      type: 'select',
-                      name: 'type',
+                      type: 'relationship',
+                      name: 'socialMediaType',
                       label: 'Red Social',
-                      options: [
-                        {
-                          label: 'Tiktok',
-                          value: 'Tiktok'
-                        },
-                        {
-                          label: 'Facebook',
-                          value: 'Facebook'
-                        },
-                        {
-                          label: 'Instagram',
-                          value: 'Instagram',
-                        },
-                        {
-                          label: 'X',
-                          value: 'X',
-                        },
-                        {
-                          label: 'LinkedIn',
-                          value: 'LinkedIn',
-                        },
-                        {
-                          label: 'Pinterest',
-                          value: 'Pinterest',
-                        },
-                        {
-                          label: 'Página Web',
-                          value: 'Página Web',
-                        },
-                      ],
+                      relationTo: 'socialMediaTypes',
+                      hasMany: false
                     },
                     {
                       type: 'text',
@@ -385,24 +258,21 @@ const Users: CollectionConfig = {
               label: 'Descripción de Perfíl',
               type: 'textarea',
             },
+            {
+              name: 'receiveEmails',
+              label: '¿Recibe emails?',
+              type: 'checkbox',
+              defaultValue: true,
+            },
           ]
         }
       ]
     },
     {
       name: 'media',
-      label: 'Foto de Perfíl',
+      label: 'Foto de Perfil',
       type: 'upload',
       relationTo: 'media',
-      admin: {
-        position: 'sidebar'
-      }
-    },
-    {
-      name: 'receiveEmails',
-      label: '¿Recibe emails?',
-      type: 'checkbox',
-      defaultValue: true,
       admin: {
         position: 'sidebar'
       }

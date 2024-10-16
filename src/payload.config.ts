@@ -41,6 +41,12 @@ import { beforeSyncWithSearch } from '@/search/beforeSync'
 import Localities from './collections/Localities'
 import { Services } from './collections/Services'
 import { OperationUnits } from './collections/OperationUnits'
+import DocumentTypes from './collections/Users/DocumentTypes'
+import Genders from './collections/Users/Genders'
+import SexualOrientations from './collections/Users/SexualOrientations'
+import Disabilities from './collections/Users/Disabilities'
+import Ethnicities from './collections/Users/Ethnicities'
+import SocialMediaTypes from './collections/SocialMediaTypes'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -148,7 +154,7 @@ export default buildConfig({
       connectionString: process.env.DATABASE_URI || '',
     },
   }),
-  collections: [Pages, Posts, Media, Categories, Users, Localities, Services, OperationUnits],
+  collections: [Pages, Posts, Media, Categories, Users, Localities, Services, OperationUnits, DocumentTypes, Genders, SexualOrientations, Disabilities, Ethnicities, SocialMediaTypes],
   cors: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),
   csrf: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),
   endpoints: [
