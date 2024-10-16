@@ -32,9 +32,9 @@ const Users: CollectionConfig = {
   auth: true,
   fields: [
     {
+      type: 'select',
       name: 'role',
       label: 'Rol',
-      type: 'select',
       required: true,
       defaultValue: 'user',
       admin: {
@@ -69,15 +69,15 @@ const Users: CollectionConfig = {
               type: 'row',
               fields: [
                 {
+                  type: 'text',
                   name: 'firstName',
                   label: 'Primer Nombre',
-                  type: 'text',
                   required: true,
                 },
                 {
+                  type: 'text',
                   name: 'otherNames',
                   label: 'Otros Nombres',
-                  type: 'text',
                 },
               ],
             },
@@ -99,10 +99,10 @@ const Users: CollectionConfig = {
               ],
             },
             {
+              virtual: true,
+              type: 'text',
               name: 'fullName',
               label: 'Nombre Completo',
-              type: 'text',
-              virtual: true,
               access: {
                 create: () => false,
                 update: () => false,
@@ -133,18 +133,19 @@ const Users: CollectionConfig = {
                   required: true,
                 },
                 {
+                  type: 'number',
                   name: 'documentNumber',
                   label: 'Número de Documento',
-                  type: 'number',
                   required: true,
                   min: 0
                 },
               ],
             },
             {
+              type: 'date',
               name: 'dateOfBirth',
               label: 'Fecha de Nacimiento',
-              type: 'date',
+              required: true,
               admin: {
                 date: {
                   maxDate: new Date()
@@ -160,6 +161,7 @@ const Users: CollectionConfig = {
                   name: 'sexualOrientation',
                   label: 'Orientación Sexual',
                   hasMany: false,
+                  required: true,
                 },
                 {
                   type: 'relationship',
@@ -167,6 +169,7 @@ const Users: CollectionConfig = {
                   name: 'gender',
                   label: 'Sexo',
                   hasMany: false,
+                  required: true,
                 },
               ]
             },
@@ -180,6 +183,7 @@ const Users: CollectionConfig = {
                   label: 'Etnia',
                   defaultValue: 'Ninguna',
                   hasMany: false,
+                  required: true,
                 },
                 {
                   type: 'relationship',
@@ -187,7 +191,8 @@ const Users: CollectionConfig = {
                   name: 'disability',
                   label: 'Discapacidad',
                   defaultValue: 'Ninguna',
-                  hasMany: true
+                  hasMany: true,
+                  required: true,
                 },
               ]
             },
@@ -237,16 +242,19 @@ const Users: CollectionConfig = {
               name: 'locality',
               label: 'Localidad',
               hasMany: false,
+              required: true,
             },
             {
               type: 'text',
               name: 'neighborhood',
               label: 'Barrio',
+              required: true,
             },
             {
               type: 'text',
               name: 'address',
               label: 'Dirección',
+              required: true,
             }
           ]
         },
@@ -262,7 +270,8 @@ const Users: CollectionConfig = {
               name: 'receiveEmails',
               label: '¿Recibe emails?',
               type: 'checkbox',
-              defaultValue: true,
+              defaultValue: false,
+              required: true,
             },
           ]
         }
@@ -282,9 +291,10 @@ const Users: CollectionConfig = {
       label: '¿Es visible?',
       type: 'checkbox',
       defaultValue: true,
+      required: true,
       admin: {
         position: 'sidebar'
-      }
+      },
     },
   ],
   timestamps: true,

@@ -40,7 +40,7 @@ export default async function Page() {
         />
       </div>
 
-      <CollectionArchive relationTo="posts" items={posts.docs} showCardCategories={true} />
+      <CollectionArchive prefix="posts" items={posts.docs} showCardCategories={true} />
 
       <div className="container">
         {posts.totalPages > 1 && posts.page && (
