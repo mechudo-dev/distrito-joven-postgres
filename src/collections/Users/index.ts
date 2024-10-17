@@ -14,7 +14,6 @@ const Users: CollectionConfig = {
     singular: 'Usuario',
     plural: 'Usuarios'
   },
-  defaultSort: 'fullName',
   access: {
     admin: authenticated,
     create: authenticated,
@@ -22,11 +21,13 @@ const Users: CollectionConfig = {
     read: authenticated,
     update: authenticated,
   },
+  defaultSort: 'documentNumber',
   admin: {
-    defaultColumns: ['documentNumber', 'fullName', 'role', 'isVisible'],
     useAsTitle: 'fullName',
-    description: '',
-    listSearchableFields: ['documentNumber', 'fullName', 'role'],
+    defaultColumns: ['documentNumber', 'fullName', 'email', 'locality', 'role', 'isVisible'],
+    listSearchableFields: ['documentNumber', 'fullName', 'email'],
+    description: 'Listado de todos los usuarios del sistema, incluyendo usuarios, administradores y demás usuarios con otros roles del sistema',
+    // hideAPIURL: Boolean(!superadmin),
     group: 'Usuarios'
   },
   auth: true,

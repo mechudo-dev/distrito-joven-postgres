@@ -39,9 +39,12 @@ export const Services: CollectionConfig = {
     read: authenticatedOrPublished,
     update: authenticated,
   },
-  defaultSort: 'updatedAt',
+  defaultSort: 'title',
   admin: {
-    defaultColumns: ['title', 'slug', 'authors', 'updatedAt'],
+    useAsTitle: 'title',
+    defaultColumns: ['title', 'authors', 'isVisible'],
+    listSearchableFields: ['title'],
+    description: 'Listado de los principales servicios que brinda la Subdirección para la Juventud.',
     livePreview: {
       url: ({ data }) => {
         const path = generatePreviewPath({
@@ -60,9 +63,6 @@ export const Services: CollectionConfig = {
 
       return `${process.env.NEXT_PUBLIC_SERVER_URL}${path}`
     },
-    useAsTitle: 'title',
-    description: '',
-    listSearchableFields: ['title'],
   },
   fields: [
     {
@@ -187,6 +187,7 @@ export const Services: CollectionConfig = {
       label: '¿Es visible?',
       type: 'checkbox',
       defaultValue: true,
+      required: true,
       admin: {
         position: 'sidebar'
       }

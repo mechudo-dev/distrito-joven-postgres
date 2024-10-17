@@ -41,7 +41,10 @@ export const OperationUnits: CollectionConfig = {
   },
   defaultSort: 'updatedAt',
   admin: {
-    defaultColumns: ['title', 'service', 'locality', 'neighborhood', 'address', 'updatedAt'],
+    useAsTitle: 'title',
+    defaultColumns: ['title', 'service', 'locality', 'neighborhood', 'address', 'updatedAt', 'isVisible'],
+    listSearchableFields: ['title'],
+    description: 'Listado de todas las Unidades Operativas de la Subdirección para la Juventud.',
     livePreview: {
       url: ({ data }) => {
         const path = generatePreviewPath({
@@ -60,9 +63,6 @@ export const OperationUnits: CollectionConfig = {
 
       return `${process.env.NEXT_PUBLIC_SERVER_URL}${path}`
     },
-    useAsTitle: 'title',
-    description: '',
-    listSearchableFields: ['title'],
   },
   fields: [
     {
@@ -346,6 +346,7 @@ export const OperationUnits: CollectionConfig = {
       label: '¿Es visible?',
       type: 'checkbox',
       defaultValue: true,
+      required: true,
       admin: {
         position: 'sidebar'
       }

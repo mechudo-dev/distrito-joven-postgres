@@ -393,7 +393,7 @@ export interface User {
 export interface DocumentType {
   id: number;
   documentType: string;
-  isVisible?: boolean | null;
+  isVisible: boolean;
   updatedAt: string;
   createdAt: string;
 }
@@ -404,7 +404,7 @@ export interface DocumentType {
 export interface SexualOrientation {
   id: number;
   sexualOrientation: string;
-  isVisible?: boolean | null;
+  isVisible: boolean;
   updatedAt: string;
   createdAt: string;
 }
@@ -415,7 +415,7 @@ export interface SexualOrientation {
 export interface Gender {
   id: number;
   gender: string;
-  isVisible?: boolean | null;
+  isVisible: boolean;
   updatedAt: string;
   createdAt: string;
 }
@@ -426,7 +426,7 @@ export interface Gender {
 export interface Ethnicity {
   id: number;
   ethnicity: string;
-  isVisible?: boolean | null;
+  isVisible: boolean;
   updatedAt: string;
   createdAt: string;
 }
@@ -437,7 +437,7 @@ export interface Ethnicity {
 export interface Disability {
   id: number;
   disability: string;
-  isVisible?: boolean | null;
+  isVisible: boolean;
   updatedAt: string;
   createdAt: string;
 }
@@ -448,7 +448,7 @@ export interface Disability {
 export interface SocialMediaType {
   id: number;
   socialMediaType: string;
-  isVisible?: boolean | null;
+  isVisible: boolean;
   updatedAt: string;
   createdAt: string;
 }
@@ -458,9 +458,9 @@ export interface SocialMediaType {
  */
 export interface Locality {
   id: number;
-  code?: number | null;
-  name?: string | null;
-  isVisible?: boolean | null;
+  code: number;
+  name: string;
+  isVisible: boolean;
   updatedAt: string;
   createdAt: string;
 }
@@ -691,7 +691,7 @@ export interface Service {
     | null;
   slug?: string | null;
   slugLock?: boolean | null;
-  isVisible?: boolean | null;
+  isVisible: boolean;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -755,7 +755,7 @@ export interface OperationUnit {
     | null;
   slug?: string | null;
   slugLock?: boolean | null;
-  isVisible?: boolean | null;
+  isVisible: boolean;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;

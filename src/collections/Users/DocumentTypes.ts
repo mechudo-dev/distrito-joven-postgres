@@ -15,8 +15,10 @@ const DocumentTypes: CollectionConfig = {
     read: anyone,
     update: superadmin,
   },
+  defaultSort: 'documentType',
   admin: {
     useAsTitle: 'documentType',
+    listSearchableFields: ['documentType'],
     group: 'Usuarios'
   },
   fields: [
@@ -31,6 +33,7 @@ const DocumentTypes: CollectionConfig = {
       name: 'isVisible',
       label: '¿Es visible?',
       type: 'checkbox',
+      required: true,
       defaultValue: true,
       admin: {
         position: 'sidebar'
