@@ -38,7 +38,6 @@ import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 
 import { searchFields } from '@/search/fieldOverrides'
 import { beforeSyncWithSearch } from '@/search/beforeSync'
-import Localities from './collections/Localities'
 import { Services } from './collections/Services'
 import { OperationUnits } from './collections/OperationUnits'
 import DocumentTypes from './collections/Users/DocumentTypes'
@@ -47,6 +46,7 @@ import SexualOrientations from './collections/Users/SexualOrientations'
 import Disabilities from './collections/Users/Disabilities'
 import Ethnicities from './collections/Users/Ethnicities'
 import SocialMediaTypes from './collections/SocialMediaTypes'
+import Localities from './collections/Localities'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)

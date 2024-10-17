@@ -17,6 +17,7 @@ const SocialMediaTypes: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'socialMediaType',
+    group: 'Constantes',
   },
   fields: [
     {

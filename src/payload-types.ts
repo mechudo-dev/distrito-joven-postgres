@@ -666,7 +666,7 @@ export interface Service {
     image?: (number | null) | Media;
     description?: string | null;
   };
-  description: {
+  pageContent: {
     root: {
       type: string;
       children: {
@@ -714,7 +714,7 @@ export interface OperationUnit {
   address: string;
   longitude: number;
   latitude: number;
-  description: {
+  pageContent: {
     root: {
       type: string;
       children: {
@@ -733,6 +733,7 @@ export interface OperationUnit {
     | {
         isHightlight: boolean;
         name: string;
+        description?: string | null;
         schedules?:
           | {
               day: 'Lunes' | 'Martes' | 'Miercoles' | 'Jueves' | 'Viernes' | 'Sabado' | 'Domingo';

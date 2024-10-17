@@ -1,7 +1,6 @@
 import type { CollectionConfig } from 'payload'
 
-import { authenticated } from '../../access/authenticated'
-import { FieldHook } from 'payload';
+import { authenticated } from '../access/authenticated'
 
 const Localities: CollectionConfig = {
   slug: 'localities',
@@ -22,6 +21,7 @@ const Localities: CollectionConfig = {
     useAsTitle: 'name',
     description: '',
     listSearchableFields: ['name', 'code'],
+    group: 'Constantes',
   },
   fields: [
     {

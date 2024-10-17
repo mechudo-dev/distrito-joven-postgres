@@ -41,7 +41,7 @@ export const OperationUnits: CollectionConfig = {
   },
   defaultSort: 'updatedAt',
   admin: {
-    defaultColumns: ['title', 'slug', 'updatedAt'],
+    defaultColumns: ['title', 'service', 'locality', 'neighborhood', 'address', 'updatedAt'],
     livePreview: {
       url: ({ data }) => {
         const path = generatePreviewPath({
@@ -160,8 +160,8 @@ export const OperationUnits: CollectionConfig = {
           label: 'Contenido',
           fields: [
             {
-              name: 'description',
-              label: 'Descripción',
+              name: 'pageContent',
+              label: 'Contenido de Página',
               type: 'richText',
               editor: lexicalEditor({
                 features: ({ rootFeatures }) => {
@@ -199,6 +199,11 @@ export const OperationUnits: CollectionConfig = {
                   name: 'name',
                   label: 'Nombre',
                   required: true
+                },
+                {
+                  type: 'textarea',
+                  name: 'description',
+                  label: 'Descripción',
                 },
                 {
                   type: 'array',

@@ -70,7 +70,7 @@ export default async function Service({ params: paramsPromise }: Args) {
         <div className="container lg:mx-0 lg:grid lg:grid-cols-[1fr_48rem_1fr] grid-rows-[1fr]">
           <RichText
             className="lg:grid lg:grid-cols-subgrid col-start-1 col-span-3 grid-rows-[1fr]"
-            content={service.description}
+            content={service.pageContent}
             enableGutter={false}
           />
         </div>

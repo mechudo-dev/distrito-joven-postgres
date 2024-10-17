@@ -41,7 +41,7 @@ export const Services: CollectionConfig = {
   },
   defaultSort: 'updatedAt',
   admin: {
-    defaultColumns: ['title', 'slug', 'updatedAt'],
+    defaultColumns: ['title', 'slug', 'authors', 'updatedAt'],
     livePreview: {
       url: ({ data }) => {
         const path = generatePreviewPath({
@@ -105,8 +105,8 @@ export const Services: CollectionConfig = {
           label: 'Contenido',
           fields: [
             {
-              name: 'description',
-              label: 'Descripción',
+              name: 'pageContent',
+              label: 'Contenido de Página',
               type: 'richText',
               editor: lexicalEditor({
                 features: ({ rootFeatures }) => {
