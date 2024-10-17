@@ -35,7 +35,7 @@ export default async function Page() {
           totalDocs={services.totalDocs}
           collectionLabels={{
             singular: 'Servicio',
-            plural: 'Services',
+            plural: 'Servicios',
           }}
         />
       </div>

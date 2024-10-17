@@ -35,11 +35,12 @@ export async function generateStaticParams() {
 type Args = {
   params: Promise<{
     slug?: string
+    operationUnitsPageNumber: number
   }>
 }
 
 export default async function Service({ params: paramsPromise }: Args) {
-  const { slug = '' } = await paramsPromise
+  const { slug = '', operationUnitsPageNumber = 2 } = await paramsPromise
   const url = '/servicios/' + slug
   const service = await queryServiceBySlug({ slug })
   const payload = await getPayloadHMR({ config: configPromise })
@@ -54,7 +55,8 @@ export default async function Service({ params: paramsPromise }: Args) {
       'service.title': {
         equals: service.title
       }
-    }
+    },
+    page: operationUnitsPageNumber
   })
 
   return (

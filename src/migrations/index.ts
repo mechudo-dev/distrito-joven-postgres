@@ -12,6 +12,7 @@ import * as migration_20241016_194049_fixing_details_user_related_collections fr
 import * as migration_20241016_214226_fixing_details_services_and_operation_units_collections from './20241016_214226_fixing_details_services_and_operation_units_collections';
 import * as migration_20241017_144125 from './20241017_144125';
 import * as migration_20241017_145409_renaming_description_field_servicesn_operating_units_collections from './20241017_145409_renaming_description_field_servicesn_operating_units_collections';
+import * as migration_20241017_160323 from './20241017_160323';
 
 export const migrations = [
   {
@@ -82,6 +83,11 @@ export const migrations = [
   {
     up: migration_20241017_145409_renaming_description_field_servicesn_operating_units_collections.up,
     down: migration_20241017_145409_renaming_description_field_servicesn_operating_units_collections.down,
-    name: '20241017_145409_renaming_description_field_servicesn_operating_units_collections'
+    name: '20241017_145409_renaming_description_field_servicesn_operating_units_collections',
+  },
+  {
+    up: migration_20241017_160323.up,
+    down: migration_20241017_160323.down,
+    name: '20241017_160323'
   },
 ];

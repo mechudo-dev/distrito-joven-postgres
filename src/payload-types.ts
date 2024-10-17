@@ -356,6 +356,7 @@ export interface User {
   documentType: number | DocumentType;
   documentNumber: number;
   dateOfBirth: string;
+  age?: string | null;
   sexualOrientation: number | SexualOrientation;
   gender: number | Gender;
   ethnicity: number | Ethnicity;

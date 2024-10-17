@@ -8,6 +8,20 @@ const populateFullName: FieldHook = async ({ data }) => (
   `${data?.firstName ? data?.firstName : ''} ${data?.otherNames ? data?.otherNames : ''} ${data?.firstLastName ? data?.firstLastName : ''} ${data?.secondLastName ? data?.secondLastName : ''}`
 );
 
+const calculateAge: FieldHook = async ({ data }) => {
+  const today = new Date();
+  const birthDate = new Date(data?.dateOfBirth);
+
+  let age = today.getFullYear() - birthDate.getFullYear(); 
+  const monthDiff = today.getMonth() - birthDate.getMonth(); 
+
+  // Si aún no ha pasado el mes del cumpleaños o es el mismo mes pero el día no ha pasado
+  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+    age--;
+  }
+  return age + ' años';
+};
+
 const Users: CollectionConfig = {
   slug: 'users',
   labels: {
@@ -24,7 +38,7 @@ const Users: CollectionConfig = {
   defaultSort: 'documentNumber',
   admin: {
     useAsTitle: 'fullName',
-    defaultColumns: ['documentNumber', 'fullName', 'email', 'locality', 'role', 'isVisible'],
+    defaultColumns: ['documentNumber', 'fullName', 'age', 'email', 'locality', 'role', 'isVisible'],
     listSearchableFields: ['documentNumber', 'fullName', 'email'],
     description: 'Listado de todos los usuarios del sistema, incluyendo usuarios, administradores y demás usuarios con otros roles del sistema',
     // hideAPIURL: Boolean(!superadmin),
@@ -110,8 +124,6 @@ const Users: CollectionConfig = {
               },
               hooks: {
                 beforeChange: [({ siblingData }) => {
-                  // Mutate the sibling data to prevent DB storage
-                  // eslint-disable-next-line no-param-reassign
                   delete siblingData['fullName'] // ensures data is not stored in DB
                 }],
                 afterRead: [
@@ -152,6 +164,27 @@ const Users: CollectionConfig = {
                   maxDate: new Date()
                 }
               }
+            },
+            {
+              virtual: true,
+              type: 'text',
+              name: 'age',
+              label: 'Edad',
+              access: {
+                create: () => false,
+                update: () => false,
+              },
+              hooks: {
+                beforeChange: [({ siblingData }) => {
+                  delete siblingData['age'] // ensures data is not stored in DB
+                }],
+                afterRead: [
+                  calculateAge,
+                ],
+              },
+              // admin: {
+              //   hidden: true,
+              // },
             },
             {
               type: 'row',
