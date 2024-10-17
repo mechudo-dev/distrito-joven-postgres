@@ -73,6 +73,14 @@ export const OperationUnits: CollectionConfig = {
       unique: true,
     },
     {
+      type: 'relationship',
+      relationTo: 'services',
+      name: 'service',
+      label: 'Servicio',
+      hasMany: false,
+      required: true,
+    },
+    {
       type: 'tabs',
       tabs: [
         {
@@ -103,66 +111,49 @@ export const OperationUnits: CollectionConfig = {
           ],
         },
         {
-          label: 'Información Principal',
+          label: 'Ubicación',
           fields: [
             {
-              type: 'relationship',
-              relationTo: 'services',
-              name: 'service',
-              label: 'Servicio',
-              hasMany: false,
-              required: true,
-            },
-            {
-              type: 'collapsible',
-              label: 'Ubicación',
-              admin: {
-                initCollapsed: true,
-              },
+              type: 'row',
               fields: [
                 {
-                  type: 'row',
-                  fields: [
-                    {
-                      type: 'relationship',
-                      relationTo: 'localities',
-                      name: 'Localidad',
-                      hasMany: false,
-                      required: true,
-                    },
-                    {
-                      type: 'text',
-                      name: 'neighborhood',
-                      label: 'Barrio',
-                      required: true,
-                    },
-                  ]
-                },
-                {
-                  type: 'text',
-                  name: 'address',
-                  label: 'Dirección',
+                  type: 'relationship',
+                  relationTo: 'localities',
+                  name: 'Localidad',
+                  hasMany: false,
                   required: true,
                 },
                 {
-                  type: 'row',
-                  fields: [
-                    {
-                      type: 'number',
-                      name: 'longitude',
-                      label: 'Longitud',
-                      required: true,
-                    },
-                    {
-                      type: 'number',
-                      name: 'latitude',
-                      label: 'Latitud',
-                      required: true,
-                    }
-                  ]
+                  type: 'text',
+                  name: 'neighborhood',
+                  label: 'Barrio',
+                  required: true,
                 },
               ]
-            }
+            },
+            {
+              type: 'text',
+              name: 'address',
+              label: 'Dirección',
+              required: true,
+            },
+            {
+              type: 'row',
+              fields: [
+                {
+                  type: 'number',
+                  name: 'longitude',
+                  label: 'Longitud',
+                  required: true,
+                },
+                {
+                  type: 'number',
+                  name: 'latitude',
+                  label: 'Latitud',
+                  required: true,
+                }
+              ]
+            },
           ]
         },
         {
@@ -196,6 +187,13 @@ export const OperationUnits: CollectionConfig = {
               name: 'workshops',
               label: 'Talleres',
               fields: [
+                {
+                  type: 'checkbox',
+                  name: 'isHightlight',
+                  label: '¿Destacar?',
+                  required: true,
+                  defaultValue: false,
+                },
                 {
                   type: 'text',
                   name: 'name',
@@ -275,7 +273,7 @@ export const OperationUnits: CollectionConfig = {
                       ]
                     },
                   ]
-                }
+                },
               ]
             },
           ],

@@ -703,12 +703,12 @@ export interface Service {
 export interface OperationUnit {
   id: number;
   title: string;
+  service: number | Service;
   meta?: {
     title?: string | null;
     image?: (number | null) | Media;
     description?: string | null;
   };
-  service: number | Service;
   Localidad: number | Locality;
   neighborhood: string;
   address: string;
@@ -731,6 +731,7 @@ export interface OperationUnit {
   };
   workshops?:
     | {
+        isHightlight: boolean;
         name: string;
         schedules?:
           | {

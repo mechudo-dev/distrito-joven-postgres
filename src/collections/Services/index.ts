@@ -90,7 +90,6 @@ export const Services: CollectionConfig = {
             MetaImageField({
               relationTo: 'media',
             }),
-
             MetaDescriptionField({}),
             PreviewField({
               // if the `generateUrl` function is configured
