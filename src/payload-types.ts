@@ -708,7 +708,7 @@ export interface OperationUnit {
     image?: (number | null) | Media;
     description?: string | null;
   };
-  Servicio: number | Service;
+  service: number | Service;
   Localidad: number | Locality;
   neighborhood: string;
   address: string;

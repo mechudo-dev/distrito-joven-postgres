@@ -46,7 +46,7 @@ export const OperationUnits: CollectionConfig = {
       url: ({ data }) => {
         const path = generatePreviewPath({
           slug: `/${typeof data?.slug === 'string' ? data.slug : ''}`,
-          collection: 'services',
+          collection: 'operationUnits',
         })
 
         return `${process.env.NEXT_PUBLIC_SERVER_URL}${path}`
@@ -55,7 +55,7 @@ export const OperationUnits: CollectionConfig = {
     preview: (data) => {
       const path = generatePreviewPath({
         slug: `/${typeof data?.slug === 'string' ? data.slug : ''}`,
-        collection: 'services',
+        collection: 'operationUnits',
       })
 
       return `${process.env.NEXT_PUBLIC_SERVER_URL}${path}`
@@ -108,7 +108,8 @@ export const OperationUnits: CollectionConfig = {
             {
               type: 'relationship',
               relationTo: 'services',
-              name: 'Servicio',
+              name: 'service',
+              label: 'Servicio',
               hasMany: false,
               required: true,
             },

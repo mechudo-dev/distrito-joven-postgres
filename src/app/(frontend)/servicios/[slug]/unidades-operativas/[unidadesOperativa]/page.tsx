@@ -16,21 +16,21 @@ import PageClient from './page.client'
 import { CollectionArchive } from '@/components/CollectionArchive'
 import { Pagination } from '@/components/Pagination'
 
-export async function generateStaticParams() {
-  const payload = await getPayloadHMR({ config: configPromise })
-  const services = await payload.find({
-    collection: 'services',
-    draft: false,
-    limit: 1000,
-    overrideAccess: false,
-  })
+// export async function generateStaticParams() {
+//   const payload = await getPayloadHMR({ config: configPromise })
+//   const services = await payload.find({
+//     collection: 'services',
+//     draft: false,
+//     limit: 1000,
+//     overrideAccess: false,
+//   })
 
-  const params = services.docs.map(({ slug }) => {
-    return { slug }
-  })
+//   const params = services.docs.map(({ slug }) => {
+//     return { slug }
+//   })
 
-  return params
-}
+//   return params
+// }
 
 type Args = {
   params: Promise<{
@@ -38,30 +38,30 @@ type Args = {
   }>
 }
 
-export default async function Service({ params: paramsPromise }: Args) {
-  const { slug = '' } = await paramsPromise
-  const url = '/servicios/' + slug
-  const service = await queryServiceBySlug({ slug })
-  const payload = await getPayloadHMR({ config: configPromise })
+export default async function UnidadOperativa({ params: paramsPromise }: Args) {
+  // const { slug = '' } = await paramsPromise
+  // const url = '/servicios/' + slug
+  // const service = await queryServiceBySlug({ slug })
+  // const payload = await getPayloadHMR({ config: configPromise })
 
-  if (!service) return <PayloadRedirects url={url} />
+  // if (!service) return <PayloadRedirects url={url} />
 
-  const operationUnits = await payload.find({
-    collection: 'operationUnits',
-    depth: 1,
-    limit: 6,
-    where: {
-      'service.title': {
-        equals: service.title
-      }
-    }
-  })
+  // const operationUnits = await payload.find({
+  //   collection: 'operationUnits',
+  //   depth: 1,
+  //   limit: 6,
+  //   where: {
+  //     'service.title': {
+  //       equals: service.title
+  //     }
+  //   }
+  // })
 
   return (
     <article className="pt-16 pb-16">
       <PageClient />
 
-      {/* Allows redirects for valid pages too */}
+      {/* Allows redirects for valid pages too
       <PayloadRedirects disableNotFound url={url} />
 
       <ServiceHero service={service} />
@@ -90,40 +90,43 @@ export default async function Service({ params: paramsPromise }: Args) {
         />
       </div>
 
-      <CollectionArchive prefix={`servicios/${service.slug}/unidades-operativas`} items={operationUnits.docs} showCardCategories={true} />
+      <CollectionArchive prefix={`${service.slug}/unidades-operativas`} items={operationUnits.docs} showCardCategories={true} />
 
       <div className="container">
         {operationUnits.totalPages > 1 && operationUnits.page && (
           <Pagination pageName='operationUnits' page={operationUnits.page} totalPages={operationUnits.totalPages} />
         )}
-      </div>
+      </div> */}
+      <p>
+        goku estuvo aquí
+      </p>
     </article>
   )
 }
 
-export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
-  const { slug = '' } = await paramsPromise
-  const service = await queryServiceBySlug({ slug })
+// export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
+//   const { slug = '' } = await paramsPromise
+//   const service = await queryServiceBySlug({ slug })
 
-  return generateMeta({ doc: service })
-}
+//   return generateMeta({ doc: service })
+// }
 
-const queryServiceBySlug = cache(async ({ slug }: { slug: string }) => {
-  const { isEnabled: draft } = await draftMode()
+// const queryServiceBySlug = cache(async ({ slug }: { slug: string }) => {
+//   const { isEnabled: draft } = await draftMode()
 
-  const payload = await getPayloadHMR({ config: configPromise })
+//   const payload = await getPayloadHMR({ config: configPromise })
 
-  const result = await payload.find({
-    collection: 'services',
-    draft,
-    limit: 1,
-    overrideAccess: draft,
-    where: {
-      slug: {
-        equals: slug,
-      },
-    },
-  })
+//   const result = await payload.find({
+//     collection: 'services',
+//     draft,
+//     limit: 1,
+//     overrideAccess: draft,
+//     where: {
+//       slug: {
+//         equals: slug,
+//       },
+//     },
+//   })
 
-  return result.docs?.[0] || null
-})
+//   return result.docs?.[0] || null
+// })
