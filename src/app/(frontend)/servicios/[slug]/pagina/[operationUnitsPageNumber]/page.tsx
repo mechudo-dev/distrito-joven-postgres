@@ -96,7 +96,7 @@ export default async function Service({ params: paramsPromise }: Args) {
 
       <div className="container">
         {operationUnits.totalPages > 1 && operationUnits.page && (
-          <Pagination pageName={`servicios/${service.slug}`} page={operationUnits.page} totalPages={operationUnits.totalPages} />
+          <Pagination pageName={`servicios/${service.slug}`} page={Number(operationUnits.page)} totalPages={operationUnits.totalPages} />
         )}
       </div>
     </article>
