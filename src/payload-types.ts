@@ -713,8 +713,8 @@ export interface OperationUnit {
   Localidad: number | Locality;
   neighborhood: string;
   address: string;
-  longitude: number;
   latitude: number;
+  longitude: number;
   pageContent: {
     root: {
       type: string;

@@ -22,6 +22,7 @@ export const Pagination: React.FC<{
   const router = useRouter()
 
   const { className, page, totalPages, pageName } = props
+
   const hasNextPage = page < totalPages
   const hasPrevPage = page > 1
 

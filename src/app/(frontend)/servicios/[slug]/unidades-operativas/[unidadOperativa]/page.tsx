@@ -15,6 +15,7 @@ import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
 import { CollectionArchive } from '@/components/CollectionArchive'
 import { Pagination } from '@/components/Pagination'
+import GoogleMap from '@/components/GoogleMap'
 
 // export async function generateStaticParams() {
 //   const payload = await getPayloadHMR({ config: configPromise })
@@ -63,6 +64,15 @@ export default async function OperationUnit({ params: paramsPromise }: Args) {
           />
         </div>
 
+      </div>
+
+      <div className="flex flex-col items-center gap-4 pt-8">
+        <GoogleMap coordinates={
+          [{
+            longitude: operationUnit.longitude,
+            latitude: operationUnit.latitude
+          }]
+        } />
       </div>
 
       {/* <div className="container mb-8">

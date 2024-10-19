@@ -7,14 +7,19 @@ import { getPayloadHMR } from '@payloadcms/next/utilities'
 import { draftMode } from 'next/headers'
 import React, { cache } from 'react'
 import RichText from '@/components/RichText'
+import dynamic from 'next/dynamic'
 
-import type { Service } from '@/payload-types'
+import type { OperationUnit, Service } from '@/payload-types'
 
 import { ServiceHero } from '@/heros/ServiceHero'
 import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
 import { CollectionArchive } from '@/components/CollectionArchive'
 import { Pagination } from '@/components/Pagination'
+import { PaginatedDocs } from 'payload'
+import GoogleMap from '@/components/GoogleMap'
+
+// const GoogleMap = dynamic(() => import('@/components/GoogleMap'), { ssr: false })
 
 export async function generateStaticParams() {
   const payload = await getPayloadHMR({ config: configPromise })
@@ -31,6 +36,11 @@ export async function generateStaticParams() {
 
   return params
 }
+
+const extractCoordinates = (operationUnits: PaginatedDocs<OperationUnit>) => operationUnits.docs.map(operationUnit => ({
+  longitude: operationUnit.longitude,
+  latitude: operationUnit.latitude
+}))
 
 type Args = {
   params: Promise<{
@@ -57,6 +67,8 @@ export default async function Service({ params: paramsPromise }: Args) {
     }
   })
 
+  const coordinates = extractCoordinates(operationUnits)
+
   return (
     <article className="pt-16 pb-16">
       <PageClient />
@@ -74,7 +86,10 @@ export default async function Service({ params: paramsPromise }: Args) {
             enableGutter={false}
           />
         </div>
-
+      </div>
+      
+      <div className="flex flex-col items-center gap-4 pt-8">
+        <GoogleMap coordinates={coordinates} />
       </div>
 
       <div className="container mb-8">

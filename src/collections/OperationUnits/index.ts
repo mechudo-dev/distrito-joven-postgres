@@ -142,16 +142,16 @@ export const OperationUnits: CollectionConfig = {
               fields: [
                 {
                   type: 'number',
-                  name: 'longitude',
-                  label: 'Longitud',
+                  name: 'latitude',
+                  label: 'Latitud',
                   required: true,
                 },
                 {
                   type: 'number',
-                  name: 'latitude',
-                  label: 'Latitud',
+                  name: 'longitude',
+                  label: 'Longitud',
                   required: true,
-                }
+                },
               ]
             },
           ]
