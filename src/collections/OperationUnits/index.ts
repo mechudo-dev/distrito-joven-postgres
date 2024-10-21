@@ -39,7 +39,7 @@ export const OperationUnits: CollectionConfig = {
     read: authenticatedOrPublished,
     update: authenticated,
   },
-  defaultSort: 'updatedAt',
+  defaultSort: 'title',
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'service', 'locality', 'neighborhood', 'address', 'updatedAt', 'isVisible'],

@@ -87,12 +87,16 @@ export default async function Service({ params: paramsPromise }: Args) {
           />
         </div>
       </div>
-      
-      <div className="flex flex-col items-center gap-4 pt-8">
-        <GoogleMap coordinates={coordinates} />
-      </div>
 
-      <div className="container mb-8">
+
+      {coordinates.length !== 0 && (
+        <div className="flex flex-col items-center gap-4 pt-8">
+          <GoogleMap coordinates={coordinates} />
+        </div>
+      )}
+
+
+      <div className="container my-8">
         <PageRange
           collection="operationUnits"
           currentPage={operationUnits.page}

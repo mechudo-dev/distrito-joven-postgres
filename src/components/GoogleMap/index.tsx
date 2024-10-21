@@ -24,7 +24,7 @@ const GoogleMap: React.FC<Props> = (props) => {
             lng: -74.09044920524293,
             lat: 4.668820678731278,
           }}
-          defaultZoom={11.5}
+          defaultZoom={12}
           gestureHandling={'greedy'}
           disableDefaultUI={true}
         >
