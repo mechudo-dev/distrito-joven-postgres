@@ -31,6 +31,7 @@ const Disabilities: CollectionConfig = {
       name: 'isVisible',
       label: '¿Es visible?',
       type: 'checkbox',
+      required: true,
       defaultValue: true,
       admin: {
         position: 'sidebar'

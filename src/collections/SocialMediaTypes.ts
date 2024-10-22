@@ -17,6 +17,7 @@ const SocialMediaTypes: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'socialMediaType',
+    group: 'Constantes',
   },
   fields: [
     {
@@ -31,6 +32,7 @@ const SocialMediaTypes: CollectionConfig = {
       label: '¿Es visible?',
       type: 'checkbox',
       defaultValue: true,
+      required: true,
       admin: {
         position: 'sidebar'
       }

@@ -39,9 +39,12 @@ export const OperationUnits: CollectionConfig = {
     read: authenticatedOrPublished,
     update: authenticated,
   },
-  defaultSort: 'updatedAt',
+  defaultSort: 'title',
   admin: {
-    defaultColumns: ['title', 'slug', 'updatedAt'],
+    useAsTitle: 'title',
+    defaultColumns: ['title', 'service', 'locality', 'neighborhood', 'address', 'updatedAt', 'isVisible'],
+    listSearchableFields: ['title'],
+    description: 'Listado de todas las Unidades Operativas de la Subdirección para la Juventud.',
     livePreview: {
       url: ({ data }) => {
         const path = generatePreviewPath({
@@ -60,9 +63,6 @@ export const OperationUnits: CollectionConfig = {
 
       return `${process.env.NEXT_PUBLIC_SERVER_URL}${path}`
     },
-    useAsTitle: 'title',
-    description: '',
-    listSearchableFields: ['title'],
   },
   fields: [
     {
@@ -71,6 +71,14 @@ export const OperationUnits: CollectionConfig = {
       type: 'text',
       required: true,
       unique: true,
+    },
+    {
+      type: 'relationship',
+      relationTo: 'services',
+      name: 'service',
+      label: 'Servicio',
+      hasMany: false,
+      required: true,
     },
     {
       type: 'tabs',
@@ -103,74 +111,57 @@ export const OperationUnits: CollectionConfig = {
           ],
         },
         {
-          label: 'Información Principal',
+          label: 'Ubicación',
           fields: [
             {
-              type: 'relationship',
-              relationTo: 'services',
-              name: 'service',
-              label: 'Servicio',
-              hasMany: false,
-              required: true,
-            },
-            {
-              type: 'collapsible',
-              label: 'Ubicación',
-              admin: {
-                initCollapsed: true,
-              },
+              type: 'row',
               fields: [
                 {
-                  type: 'row',
-                  fields: [
-                    {
-                      type: 'relationship',
-                      relationTo: 'localities',
-                      name: 'Localidad',
-                      hasMany: false,
-                      required: true,
-                    },
-                    {
-                      type: 'text',
-                      name: 'neighborhood',
-                      label: 'Barrio',
-                      required: true,
-                    },
-                  ]
-                },
-                {
-                  type: 'text',
-                  name: 'address',
-                  label: 'Dirección',
+                  type: 'relationship',
+                  relationTo: 'localities',
+                  name: 'Localidad',
+                  hasMany: false,
                   required: true,
                 },
                 {
-                  type: 'row',
-                  fields: [
-                    {
-                      type: 'number',
-                      name: 'longitude',
-                      label: 'Longitud',
-                      required: true,
-                    },
-                    {
-                      type: 'number',
-                      name: 'latitude',
-                      label: 'Latitud',
-                      required: true,
-                    }
-                  ]
+                  type: 'text',
+                  name: 'neighborhood',
+                  label: 'Barrio',
+                  required: true,
                 },
               ]
-            }
+            },
+            {
+              type: 'text',
+              name: 'address',
+              label: 'Dirección',
+              required: true,
+            },
+            {
+              type: 'row',
+              fields: [
+                {
+                  type: 'number',
+                  name: 'latitude',
+                  label: 'Latitud',
+                  required: true,
+                },
+                {
+                  type: 'number',
+                  name: 'longitude',
+                  label: 'Longitud',
+                  required: true,
+                },
+              ]
+            },
           ]
         },
         {
           label: 'Contenido',
           fields: [
             {
-              name: 'description',
-              label: 'Descripción',
+              name: 'pageContent',
+              label: 'Contenido de Página',
               type: 'richText',
               editor: lexicalEditor({
                 features: ({ rootFeatures }) => {
@@ -197,10 +188,22 @@ export const OperationUnits: CollectionConfig = {
               label: 'Talleres',
               fields: [
                 {
+                  type: 'checkbox',
+                  name: 'isHightlight',
+                  label: '¿Destacar?',
+                  required: true,
+                  defaultValue: false,
+                },
+                {
                   type: 'text',
                   name: 'name',
                   label: 'Nombre',
                   required: true
+                },
+                {
+                  type: 'textarea',
+                  name: 'description',
+                  label: 'Descripción',
                 },
                 {
                   type: 'array',
@@ -275,7 +278,7 @@ export const OperationUnits: CollectionConfig = {
                       ]
                     },
                   ]
-                }
+                },
               ]
             },
           ],
@@ -343,6 +346,7 @@ export const OperationUnits: CollectionConfig = {
       label: '¿Es visible?',
       type: 'checkbox',
       defaultValue: true,
+      required: true,
       admin: {
         position: 'sidebar'
       }

@@ -31,6 +31,7 @@ const SexualOrientations: CollectionConfig = {
       type: 'checkbox',
       name: 'isVisible',
       label: '¿Es visible?',
+      required: true,
       defaultValue: true,
       admin: {
         position: 'sidebar'

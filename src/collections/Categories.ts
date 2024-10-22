@@ -7,7 +7,7 @@ const Categories: CollectionConfig = {
   slug: 'categories',
   labels: {
     singular: 'Categoría',
-    plural: 'Categorias'
+    plural: 'Categorías'
   },
   access: {
     create: authenticated,
@@ -17,6 +17,7 @@ const Categories: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'title',
+    defaultColumns: ['title', 'isVisible'],
   },
   fields: [
     {

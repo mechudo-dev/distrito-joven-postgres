@@ -356,6 +356,7 @@ export interface User {
   documentType: number | DocumentType;
   documentNumber: number;
   dateOfBirth: string;
+  age?: string | null;
   sexualOrientation: number | SexualOrientation;
   gender: number | Gender;
   ethnicity: number | Ethnicity;
@@ -393,7 +394,7 @@ export interface User {
 export interface DocumentType {
   id: number;
   documentType: string;
-  isVisible?: boolean | null;
+  isVisible: boolean;
   updatedAt: string;
   createdAt: string;
 }
@@ -404,7 +405,7 @@ export interface DocumentType {
 export interface SexualOrientation {
   id: number;
   sexualOrientation: string;
-  isVisible?: boolean | null;
+  isVisible: boolean;
   updatedAt: string;
   createdAt: string;
 }
@@ -415,7 +416,7 @@ export interface SexualOrientation {
 export interface Gender {
   id: number;
   gender: string;
-  isVisible?: boolean | null;
+  isVisible: boolean;
   updatedAt: string;
   createdAt: string;
 }
@@ -426,7 +427,7 @@ export interface Gender {
 export interface Ethnicity {
   id: number;
   ethnicity: string;
-  isVisible?: boolean | null;
+  isVisible: boolean;
   updatedAt: string;
   createdAt: string;
 }
@@ -437,7 +438,7 @@ export interface Ethnicity {
 export interface Disability {
   id: number;
   disability: string;
-  isVisible?: boolean | null;
+  isVisible: boolean;
   updatedAt: string;
   createdAt: string;
 }
@@ -448,7 +449,7 @@ export interface Disability {
 export interface SocialMediaType {
   id: number;
   socialMediaType: string;
-  isVisible?: boolean | null;
+  isVisible: boolean;
   updatedAt: string;
   createdAt: string;
 }
@@ -458,9 +459,9 @@ export interface SocialMediaType {
  */
 export interface Locality {
   id: number;
-  code?: number | null;
-  name?: string | null;
-  isVisible?: boolean | null;
+  code: number;
+  name: string;
+  isVisible: boolean;
   updatedAt: string;
   createdAt: string;
 }
@@ -666,7 +667,7 @@ export interface Service {
     image?: (number | null) | Media;
     description?: string | null;
   };
-  description: {
+  pageContent: {
     root: {
       type: string;
       children: {
@@ -691,7 +692,7 @@ export interface Service {
     | null;
   slug?: string | null;
   slugLock?: boolean | null;
-  isVisible?: boolean | null;
+  isVisible: boolean;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -703,18 +704,18 @@ export interface Service {
 export interface OperationUnit {
   id: number;
   title: string;
+  service: number | Service;
   meta?: {
     title?: string | null;
     image?: (number | null) | Media;
     description?: string | null;
   };
-  service: number | Service;
   Localidad: number | Locality;
   neighborhood: string;
   address: string;
-  longitude: number;
   latitude: number;
-  description: {
+  longitude: number;
+  pageContent: {
     root: {
       type: string;
       children: {
@@ -731,7 +732,9 @@ export interface OperationUnit {
   };
   workshops?:
     | {
+        isHightlight: boolean;
         name: string;
+        description?: string | null;
         schedules?:
           | {
               day: 'Lunes' | 'Martes' | 'Miercoles' | 'Jueves' | 'Viernes' | 'Sabado' | 'Domingo';
@@ -753,7 +756,7 @@ export interface OperationUnit {
     | null;
   slug?: string | null;
   slugLock?: boolean | null;
-  isVisible?: boolean | null;
+  isVisible: boolean;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;

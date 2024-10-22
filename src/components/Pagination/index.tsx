@@ -22,6 +22,7 @@ export const Pagination: React.FC<{
   const router = useRouter()
 
   const { className, page, totalPages, pageName } = props
+
   const hasNextPage = page < totalPages
   const hasPrevPage = page > 1
 
@@ -36,7 +37,7 @@ export const Pagination: React.FC<{
             <PaginationPrevious
               disabled={!hasPrevPage}
               onClick={() => {
-                router.push(`/${pageName}/page/${page - 1}`)
+                router.push(`/${pageName}/pagina/${page - 1}`)
               }}
             />
           </PaginationItem>
@@ -51,7 +52,7 @@ export const Pagination: React.FC<{
             <PaginationItem>
               <PaginationLink
                 onClick={() => {
-                  router.push(`/${pageName}/page/${page - 1}`)
+                  router.push(`/${pageName}/pagina/${page - 1}`)
                 }}
               >
                 {page - 1}
@@ -63,7 +64,7 @@ export const Pagination: React.FC<{
             <PaginationLink
               isActive
               onClick={() => {
-                router.push(`/${pageName}/page/${page}`)
+                router.push(`/${pageName}/pagina/${page}`)
               }}
             >
               {page}
@@ -74,7 +75,7 @@ export const Pagination: React.FC<{
             <PaginationItem>
               <PaginationLink
                 onClick={() => {
-                  router.push(`/${pageName}/page/${page + 1}`)
+                  router.push(`/${pageName}/pagina/${page + 1}`)
                 }}
               >
                 {page + 1}
@@ -92,7 +93,7 @@ export const Pagination: React.FC<{
             <PaginationNext
               disabled={!hasNextPage}
               onClick={() => {
-                router.push(`/${pageName}/page/${page + 1}`)
+                router.push(`/${pageName}/pagina/${page + 1}`)
               }}
             />
           </PaginationItem>

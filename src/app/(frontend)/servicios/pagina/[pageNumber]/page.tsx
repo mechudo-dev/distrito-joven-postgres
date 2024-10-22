@@ -34,6 +34,10 @@ export default async function Page({ params: { pageNumber = 2 } }) {
           currentPage={services.page}
           limit={6}
           totalDocs={services.totalDocs}
+          collectionLabels={{
+            singular: 'Servicio',
+            plural: 'Servicios',
+          }}
         />
       </div>
 

@@ -32,6 +32,7 @@ const Entities: CollectionConfig = {
       label: '¿Es visible?',
       type: 'checkbox',
       defaultValue: true,
+      required: true,
       admin: {
         position: 'sidebar'
       }

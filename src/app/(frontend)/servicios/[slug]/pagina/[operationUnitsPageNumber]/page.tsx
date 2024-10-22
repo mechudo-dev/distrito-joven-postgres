@@ -7,19 +7,14 @@ import { getPayloadHMR } from '@payloadcms/next/utilities'
 import { draftMode } from 'next/headers'
 import React, { cache } from 'react'
 import RichText from '@/components/RichText'
-import dynamic from 'next/dynamic'
 
-import type { OperationUnit, Service } from '@/payload-types'
+import type { Service } from '@/payload-types'
 
 import { ServiceHero } from '@/heros/ServiceHero'
 import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
 import { CollectionArchive } from '@/components/CollectionArchive'
 import { Pagination } from '@/components/Pagination'
-import { PaginatedDocs } from 'payload'
-import GoogleMap from '@/components/GoogleMap'
-
-// const GoogleMap = dynamic(() => import('@/components/GoogleMap'), { ssr: false })
 
 export async function generateStaticParams() {
   const payload = await getPayloadHMR({ config: configPromise })
@@ -37,19 +32,15 @@ export async function generateStaticParams() {
   return params
 }
 
-const extractCoordinates = (operationUnits: PaginatedDocs<OperationUnit>) => operationUnits.docs.map(operationUnit => ({
-  longitude: operationUnit.longitude,
-  latitude: operationUnit.latitude
-}))
-
 type Args = {
   params: Promise<{
     slug?: string
+    operationUnitsPageNumber: number
   }>
 }
 
 export default async function Service({ params: paramsPromise }: Args) {
-  const { slug = '' } = await paramsPromise
+  const { slug = '', operationUnitsPageNumber = 2 } = await paramsPromise
   const url = '/servicios/' + slug
   const service = await queryServiceBySlug({ slug })
   const payload = await getPayloadHMR({ config: configPromise })
@@ -64,10 +55,9 @@ export default async function Service({ params: paramsPromise }: Args) {
       'service.title': {
         equals: service.title
       }
-    }
+    },
+    page: operationUnitsPageNumber
   })
-
-  const coordinates = extractCoordinates(operationUnits)
 
   return (
     <article className="pt-16 pb-16">
@@ -86,17 +76,10 @@ export default async function Service({ params: paramsPromise }: Args) {
             enableGutter={false}
           />
         </div>
+
       </div>
 
-
-      {coordinates.length !== 0 && (
-        <div className="flex flex-col items-center gap-4 pt-8">
-          <GoogleMap coordinates={coordinates} />
-        </div>
-      )}
-
-
-      <div className="container my-8">
+      <div className="container mb-8">
         <PageRange
           collection="operationUnits"
           currentPage={operationUnits.page}
@@ -113,7 +96,7 @@ export default async function Service({ params: paramsPromise }: Args) {
 
       <div className="container">
         {operationUnits.totalPages > 1 && operationUnits.page && (
-          <Pagination pageName={`servicios/${service.slug}`} page={operationUnits.page} totalPages={operationUnits.totalPages} />
+          <Pagination pageName={`servicios/${service.slug}`} page={Number(operationUnits.page)} totalPages={operationUnits.totalPages} />
         )}
       </div>
     </article>

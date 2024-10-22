@@ -39,9 +39,12 @@ export const Services: CollectionConfig = {
     read: authenticatedOrPublished,
     update: authenticated,
   },
-  defaultSort: 'updatedAt',
+  defaultSort: 'title',
   admin: {
-    defaultColumns: ['title', 'slug', 'updatedAt'],
+    useAsTitle: 'title',
+    defaultColumns: ['title', 'authors', 'isVisible'],
+    listSearchableFields: ['title'],
+    description: 'Listado de los principales servicios que brinda la Subdirección para la Juventud.',
     livePreview: {
       url: ({ data }) => {
         const path = generatePreviewPath({
@@ -60,9 +63,6 @@ export const Services: CollectionConfig = {
 
       return `${process.env.NEXT_PUBLIC_SERVER_URL}${path}`
     },
-    useAsTitle: 'title',
-    description: '',
-    listSearchableFields: ['title'],
   },
   fields: [
     {
@@ -90,7 +90,6 @@ export const Services: CollectionConfig = {
             MetaImageField({
               relationTo: 'media',
             }),
-
             MetaDescriptionField({}),
             PreviewField({
               // if the `generateUrl` function is configured
@@ -106,8 +105,8 @@ export const Services: CollectionConfig = {
           label: 'Contenido',
           fields: [
             {
-              name: 'description',
-              label: 'Descripción',
+              name: 'pageContent',
+              label: 'Contenido de Página',
               type: 'richText',
               editor: lexicalEditor({
                 features: ({ rootFeatures }) => {
@@ -188,6 +187,7 @@ export const Services: CollectionConfig = {
       label: '¿Es visible?',
       type: 'checkbox',
       defaultValue: true,
+      required: true,
       admin: {
         position: 'sidebar'
       }

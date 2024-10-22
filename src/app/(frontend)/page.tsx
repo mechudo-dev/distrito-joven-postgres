@@ -1,25 +1,29 @@
-import type { Metadata } from 'next/types'
+import PageTemplate, { generateMetadata } from './[slug]/page'
+export default PageTemplate
+export { generateMetadata }
 
-import { Pagination } from '@/components/Pagination'
-import configPromise from '@payload-config'
-import { getPayloadHMR } from '@payloadcms/next/utilities'
-import React from 'react'
-import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel'
+// import type { Metadata } from 'next/types'
 
-export const dynamic = 'force-static'
-export const revalidate = 600
+// import { Pagination } from '@/components/Pagination'
+// import configPromise from '@payload-config'
+// import { getPayloadHMR } from '@payloadcms/next/utilities'
+// import React from 'react'
+// import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel'
 
-export default async function Page() {
+// export const dynamic = 'force-static'
+// export const revalidate = 600
 
-  return (
-    <div className="pt-24 pb-24">
+// export default async function Page() {
+
+//   return (
+//     <div className="pt-24 pb-24">
       
-    </div>
-  )
-}
+//     </div>
+//   )
+// }
 
-export function generateMetadata(): Metadata {
-  return {
-    title: `Distrito Joven`,
-  }
-}
+// export function generateMetadata(): Metadata {
+//   return {
+//     title: `Distrito Joven`,
+//   }
+// }
