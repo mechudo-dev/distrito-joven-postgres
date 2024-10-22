@@ -40,12 +40,6 @@ import { searchFields } from '@/search/fieldOverrides'
 import { beforeSyncWithSearch } from '@/search/beforeSync'
 import { Services } from './collections/Services'
 import { OperationUnits } from './collections/OperationUnits'
-import DocumentTypes from './collections/Users/DocumentTypes'
-import Genders from './collections/Users/Genders'
-import SexualOrientations from './collections/Users/SexualOrientations'
-import Disabilities from './collections/Users/Disabilities'
-import Ethnicities from './collections/Users/Ethnicities'
-import SocialMediaTypes from './collections/SocialMediaTypes'
 import Localities from './collections/Localities'
 
 const filename = fileURLToPath(import.meta.url)
@@ -154,7 +148,7 @@ export default buildConfig({
       connectionString: process.env.DATABASE_URI || '',
     },
   }),
-  collections: [Pages, Posts, Media, Categories, Users, Localities, Services, OperationUnits, DocumentTypes, Genders, SexualOrientations, Disabilities, Ethnicities, SocialMediaTypes],
+  collections: [Pages, Posts, Media, Categories, Users, Localities, Services, OperationUnits],
   cors: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),
   csrf: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),
   endpoints: [
