@@ -13,6 +13,14 @@ import * as migration_20241016_214226_fixing_details_services_and_operation_unit
 import * as migration_20241017_144125 from './20241017_144125';
 import * as migration_20241017_145409_renaming_description_field_servicesn_operating_units_collections from './20241017_145409_renaming_description_field_servicesn_operating_units_collections';
 import * as migration_20241017_160323 from './20241017_160323';
+import * as migration_20241022_130039_deleting_document_types_table from './20241022_130039_deleting_document_types_table';
+import * as migration_20241022_134920_deleting_secual_orientations_table from './20241022_134920_deleting_secual_orientations_table';
+import * as migration_20241022_135454_deleting_gender_table from './20241022_135454_deleting_gender_table';
+import * as migration_20241022_140230_deleting_disabilities_table from './20241022_140230_deleting_disabilities_table';
+import * as migration_20241022_140942_deleting_social_media_types_table from './20241022_140942_deleting_social_media_types_table';
+import * as migration_20241022_141216_deleting_users_related_tables from './20241022_141216_deleting_users_related_tables';
+import * as migration_20241022_141701_deleting_authors_of_operation_units_table from './20241022_141701_deleting_authors_of_operation_units_table';
+import * as migration_20241022_141850_deleting_authors_of_services_table from './20241022_141850_deleting_authors_of_services_table';
 
 export const migrations = [
   {
@@ -88,6 +96,46 @@ export const migrations = [
   {
     up: migration_20241017_160323.up,
     down: migration_20241017_160323.down,
-    name: '20241017_160323'
+    name: '20241017_160323',
+  },
+  {
+    up: migration_20241022_130039_deleting_document_types_table.up,
+    down: migration_20241022_130039_deleting_document_types_table.down,
+    name: '20241022_130039_deleting_document_types_table',
+  },
+  {
+    up: migration_20241022_134920_deleting_secual_orientations_table.up,
+    down: migration_20241022_134920_deleting_secual_orientations_table.down,
+    name: '20241022_134920_deleting_secual_orientations_table',
+  },
+  {
+    up: migration_20241022_135454_deleting_gender_table.up,
+    down: migration_20241022_135454_deleting_gender_table.down,
+    name: '20241022_135454_deleting_gender_table',
+  },
+  {
+    up: migration_20241022_140230_deleting_disabilities_table.up,
+    down: migration_20241022_140230_deleting_disabilities_table.down,
+    name: '20241022_140230_deleting_disabilities_table',
+  },
+  {
+    up: migration_20241022_140942_deleting_social_media_types_table.up,
+    down: migration_20241022_140942_deleting_social_media_types_table.down,
+    name: '20241022_140942_deleting_social_media_types_table',
+  },
+  {
+    up: migration_20241022_141216_deleting_users_related_tables.up,
+    down: migration_20241022_141216_deleting_users_related_tables.down,
+    name: '20241022_141216_deleting_users_related_tables',
+  },
+  {
+    up: migration_20241022_141701_deleting_authors_of_operation_units_table.up,
+    down: migration_20241022_141701_deleting_authors_of_operation_units_table.down,
+    name: '20241022_141701_deleting_authors_of_operation_units_table',
+  },
+  {
+    up: migration_20241022_141850_deleting_authors_of_services_table.up,
+    down: migration_20241022_141850_deleting_authors_of_services_table.down,
+    name: '20241022_141850_deleting_authors_of_services_table'
   },
 ];
