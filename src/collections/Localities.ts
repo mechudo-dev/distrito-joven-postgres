@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
 import { authenticated } from '../access/authenticated'
+import { anyone } from '@/access/anyone'
 
 const Localities: CollectionConfig = {
   slug: 'localities',
@@ -13,7 +14,7 @@ const Localities: CollectionConfig = {
     admin: authenticated,
     create: authenticated,
     delete: authenticated,
-    read: authenticated,
+    read: anyone,
     update: authenticated,
   },
   admin: {
@@ -50,7 +51,6 @@ const Localities: CollectionConfig = {
       }
     },
   ],
-  timestamps: true,
 }
 
 export default Localities
