@@ -19,12 +19,6 @@ export interface Config {
     localities: Locality;
     services: Service;
     operationUnits: OperationUnit;
-    documentTypes: DocumentType;
-    genders: Gender;
-    sexualOrientations: SexualOrientation;
-    disabilities: Disability;
-    ethnicities: Ethnicity;
-    socialMediaTypes: SocialMediaType;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -353,18 +347,38 @@ export interface User {
   firstLastName: string;
   secondLastName: string;
   fullName?: string | null;
-  documentType: number | DocumentType;
+  documentType:
+    | 'Tarjeta de Identidad'
+    | 'Cédula de Ciudadanía'
+    | 'Cédula de Extranjería'
+    | 'Permiso Especial de Permanencia\t';
   documentNumber: number;
   dateOfBirth: string;
   age?: string | null;
-  sexualOrientation: number | SexualOrientation;
-  gender: number | Gender;
-  ethnicity: number | Ethnicity;
-  disability: (number | Disability)[];
+  sexualOrientation: 'Heterosexual' | 'Homosexual' | 'Bisexual' | 'Otra' | 'Prefiero no responder';
+  gender: 'Mujer' | 'Hombre' | 'Intersexual' | 'Prefiero no responder';
+  ethnicity:
+    | 'Ninguna'
+    | 'Pueblo Rrom – Gitano'
+    | 'Pueblo y/o comunidad indígena'
+    | 'Comunidades negras'
+    | 'Población afrodescendiente'
+    | 'Comunidades palenqueras'
+    | 'Pueblo raizal';
+  disability:
+    | 'Ninguna'
+    | 'Visual'
+    | 'Auditiva'
+    | 'Cognitiva'
+    | 'Física'
+    | 'Psicosocial'
+    | 'Sordoceguera'
+    | 'Múltiple'
+    | 'Otra';
   phoneNumber?: number | null;
   socialMedia?:
     | {
-        socialMediaType?: (number | null) | SocialMediaType;
+        socialMediaType: 'Página Web' | 'TikTok' | 'Facebook' | 'Instagram' | 'X' | 'LinkedIn' | 'Pinterest';
         socialMediaURL?: string | null;
         id?: string | null;
       }[]
@@ -386,72 +400,6 @@ export interface User {
   loginAttempts?: number | null;
   lockUntil?: string | null;
   password?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "documentTypes".
- */
-export interface DocumentType {
-  id: number;
-  documentType: string;
-  isVisible: boolean;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "sexualOrientations".
- */
-export interface SexualOrientation {
-  id: number;
-  sexualOrientation: string;
-  isVisible: boolean;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "genders".
- */
-export interface Gender {
-  id: number;
-  gender: string;
-  isVisible: boolean;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ethnicities".
- */
-export interface Ethnicity {
-  id: number;
-  ethnicity: string;
-  isVisible: boolean;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "disabilities".
- */
-export interface Disability {
-  id: number;
-  disability: string;
-  isVisible: boolean;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "socialMediaTypes".
- */
-export interface SocialMediaType {
-  id: number;
-  socialMediaType: string;
-  isVisible: boolean;
-  updatedAt: string;
-  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -683,13 +631,6 @@ export interface Service {
     [k: string]: unknown;
   };
   publishedAt?: string | null;
-  authors: (number | User)[];
-  populatedAuthors?:
-    | {
-        id?: string | null;
-        name?: string | null;
-      }[]
-    | null;
   slug?: string | null;
   slugLock?: boolean | null;
   isVisible: boolean;
@@ -747,13 +688,6 @@ export interface OperationUnit {
       }[]
     | null;
   publishedAt?: string | null;
-  authors: (number | User)[];
-  populatedAuthors?:
-    | {
-        id?: string | null;
-        name?: string | null;
-      }[]
-    | null;
   slug?: string | null;
   slugLock?: boolean | null;
   isVisible: boolean;
@@ -867,30 +801,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'operationUnits';
         value: number | OperationUnit;
-      } | null)
-    | ({
-        relationTo: 'documentTypes';
-        value: number | DocumentType;
-      } | null)
-    | ({
-        relationTo: 'genders';
-        value: number | Gender;
-      } | null)
-    | ({
-        relationTo: 'sexualOrientations';
-        value: number | SexualOrientation;
-      } | null)
-    | ({
-        relationTo: 'disabilities';
-        value: number | Disability;
-      } | null)
-    | ({
-        relationTo: 'ethnicities';
-        value: number | Ethnicity;
-      } | null)
-    | ({
-        relationTo: 'socialMediaTypes';
-        value: number | SocialMediaType;
       } | null)
     | ({
         relationTo: 'redirects';

@@ -12,8 +12,8 @@ const calculateAge: FieldHook = async ({ data }) => {
   const today = new Date();
   const birthDate = new Date(data?.dateOfBirth);
 
-  let age = today.getFullYear() - birthDate.getFullYear(); 
-  const monthDiff = today.getMonth() - birthDate.getMonth(); 
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const monthDiff = today.getMonth() - birthDate.getMonth();
 
   // Si aún no ha pasado el mes del cumpleaños o es el mismo mes pero el día no ha pasado
   if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
@@ -138,12 +138,28 @@ const Users: CollectionConfig = {
               type: 'row',
               fields: [
                 {
-                  type: 'relationship',
-                  relationTo: 'documentTypes',
+                  type: 'select',
                   name: 'documentType',
                   label: 'Tipo de Documento',
-                  hasMany: false,
                   required: true,
+                  options: [
+                    {
+                      label: 'Tarjeta de Identidad',
+                      value: 'Tarjeta de Identidad'
+                    },
+                    {
+                      label: 'Cédula de Ciudadanía',
+                      value: 'Cédula de Ciudadanía'
+                    },
+                    {
+                      label: 'Cédula de Extranjería',
+                      value: 'Cédula de Extranjería'
+                    },
+                    {
+                      label: 'Permiso Especial de Permanencia',
+                      value: 'Permiso Especial de Permanencia	'
+                    },
+                  ],
                 },
                 {
                   type: 'number',
@@ -182,28 +198,64 @@ const Users: CollectionConfig = {
                   calculateAge,
                 ],
               },
-              // admin: {
-              //   hidden: true,
-              // },
+              admin: {
+                hidden: true,
+              },
             },
             {
               type: 'row',
               fields: [
                 {
-                  type: 'relationship',
-                  relationTo: 'sexualOrientations',
+                  type: 'select',
                   name: 'sexualOrientation',
                   label: 'Orientación Sexual',
-                  hasMany: false,
                   required: true,
+                  options: [
+                    {
+                      label: 'Heterosexual',
+                      value: 'Heterosexual'
+                    },
+                    {
+                      label: 'Homosexual',
+                      value: 'Homosexual'
+                    },
+                    {
+                      label: 'Bisexual',
+                      value: 'Bisexual'
+                    },
+                    {
+                      label: 'Otra',
+                      value: 'Otra'
+                    },
+                    {
+                      label: 'Prefiero no responder',
+                      value: 'Prefiero no responder'
+                    },
+                  ],
                 },
                 {
-                  type: 'relationship',
-                  relationTo: 'genders',
+                  type: 'select',
                   name: 'gender',
                   label: 'Sexo',
-                  hasMany: false,
                   required: true,
+                  options: [
+                    {
+                      label: 'Mujer',
+                      value: 'Mujer'
+                    },
+                    {
+                      label: 'Hombre',
+                      value: 'Hombre'
+                    },
+                    {
+                      label: 'Intersexual',
+                      value: 'Intersexual'
+                    },
+                    {
+                      label: 'Prefiero no responder',
+                      value: 'Prefiero no responder'
+                    },
+                  ],
                 },
               ]
             },
@@ -211,20 +263,86 @@ const Users: CollectionConfig = {
               type: 'row',
               fields: [
                 {
-                  type: 'relationship',
-                  relationTo: 'ethnicities',
+                  type: 'select',
                   name: 'ethnicity',
                   label: 'Etnia',
-                  hasMany: false,
                   required: true,
+                  defaultValue: 'Ninguna',
+                  options: [
+                    {
+                      label: 'Ninguna',
+                      value: 'Ninguna'
+                    },
+                    {
+                      label: 'Pueblo Rrom – Gitano',
+                      value: 'Pueblo Rrom – Gitano'
+                    },
+                    {
+                      label: 'Pueblo y/o comunidad indígena',
+                      value: 'Pueblo y/o comunidad indígena'
+                    },
+                    {
+                      label: 'Comunidades negras',
+                      value: 'Comunidades negras'
+                    },
+                    {
+                      label: 'Población afrodescendiente',
+                      value: 'Población afrodescendiente'
+                    },
+                    {
+                      label: 'Comunidades palenqueras',
+                      value: 'Comunidades palenqueras'
+                    },
+                    {
+                      label: 'Pueblo raizal',
+                      value: 'Pueblo raizal'
+                    },
+                  ],
                 },
                 {
-                  type: 'relationship',
-                  relationTo: 'disabilities',
+                  type: 'select',
                   name: 'disability',
                   label: 'Discapacidad',
-                  hasMany: true,
                   required: true,
+                  defaultValue: 'Ninguna',
+                  options: [
+                    {
+                      label: 'Ninguna',
+                      value: 'Ninguna'
+                    },
+                    {
+                      label: 'Visual',
+                      value: 'Visual'
+                    },
+                    {
+                      label: 'Auditiva',
+                      value: 'Auditiva'
+                    },
+                    {
+                      label: 'Cognitiva',
+                      value: 'Cognitiva'
+                    },
+                    {
+                      label: 'Física',
+                      value: 'Física'
+                    },
+                    {
+                      label: 'Psicosocial',
+                      value: 'Psicosocial'
+                    },
+                    {
+                      label: 'Sordoceguera',
+                      value: 'Sordoceguera'
+                    },
+                    {
+                      label: 'Múltiple',
+                      value: 'Múltiple'
+                    },
+                    {
+                      label: 'Otra',
+                      value: 'Otra'
+                    },
+                  ],
                 },
               ]
             },
@@ -248,11 +366,40 @@ const Users: CollectionConfig = {
                   type: 'row',
                   fields: [
                     {
-                      type: 'relationship',
+                      type: 'select',
                       name: 'socialMediaType',
                       label: 'Red Social',
-                      relationTo: 'socialMediaTypes',
-                      hasMany: false
+                      required: true,
+                      options: [
+                        {
+                          label: 'Página Web',
+                          value: 'Página Web'
+                        },
+                        {
+                          label: 'TikTok',
+                          value: 'TikTok'
+                        },
+                        {
+                          label: 'Facebook',
+                          value: 'Facebook'
+                        },
+                        {
+                          label: 'Instagram',
+                          value: 'Instagram'
+                        },
+                        {
+                          label: 'X',
+                          value: 'X'
+                        },
+                        {
+                          label: 'LinkedIn',
+                          value: 'LinkedIn'
+                        },
+                        {
+                          label: 'Pinterest',
+                          value: 'Pinterest'
+                        },
+                      ],
                     },
                     {
                       type: 'text',
