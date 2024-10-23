@@ -3,6 +3,7 @@ import type { CollectionConfig } from 'payload'
 import { authenticated } from '../../access/authenticated'
 import { superadmin } from '@/access/superadmin'
 import { FieldHook } from 'payload';
+import { localitiesSelect } from '@/fields/localitiesSelect';
 
 const populateFullName: FieldHook = async ({ data }) => (
   `${data?.firstName ? data?.firstName : ''} ${data?.otherNames ? data?.otherNames : ''} ${data?.firstLastName ? data?.firstLastName : ''} ${data?.secondLastName ? data?.secondLastName : ''}`
@@ -415,14 +416,7 @@ const Users: CollectionConfig = {
         {
           label: 'Ubicación de Residencia',
           fields: [
-            {
-              type: 'relationship',
-              relationTo: 'localities',
-              name: 'locality',
-              label: 'Localidad',
-              hasMany: false,
-              required: true,
-            },
+            localitiesSelect(),
             {
               type: 'text',
               name: 'neighborhood',

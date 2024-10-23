@@ -21,6 +21,7 @@ import * as migration_20241022_140942_deleting_social_media_types_table from './
 import * as migration_20241022_141216_deleting_users_related_tables from './20241022_141216_deleting_users_related_tables';
 import * as migration_20241022_141701_deleting_authors_of_operation_units_table from './20241022_141701_deleting_authors_of_operation_units_table';
 import * as migration_20241022_141850_deleting_authors_of_services_table from './20241022_141850_deleting_authors_of_services_table';
+import * as migration_20241023_152307_deleting_location_table from './20241023_152307_deleting_location_table';
 
 export const migrations = [
   {
@@ -136,6 +137,11 @@ export const migrations = [
   {
     up: migration_20241022_141850_deleting_authors_of_services_table.up,
     down: migration_20241022_141850_deleting_authors_of_services_table.down,
-    name: '20241022_141850_deleting_authors_of_services_table'
+    name: '20241022_141850_deleting_authors_of_services_table',
+  },
+  {
+    up: migration_20241023_152307_deleting_location_table.up,
+    down: migration_20241023_152307_deleting_location_table.down,
+    name: '20241023_152307_deleting_location_table'
   },
 ];

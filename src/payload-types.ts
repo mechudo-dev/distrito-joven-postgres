@@ -383,7 +383,27 @@ export interface User {
         id?: string | null;
       }[]
     | null;
-  locality: number | Locality;
+  locality:
+    | 'Usaquén'
+    | 'Chapinero'
+    | 'Santa Fe'
+    | 'San Cristóbal'
+    | 'Usme'
+    | 'Tunjuelito'
+    | 'Bosa'
+    | 'Kennedy'
+    | 'Fontibón'
+    | 'Engativá'
+    | 'Suba'
+    | 'Barrios Unidos'
+    | 'Teusaquillo'
+    | 'Los Mártires'
+    | 'Antonio Nariño'
+    | 'Puente Aranda'
+    | 'La Candelaria'
+    | 'Rafael Uribe Uribe'
+    | 'Ciudad Bolívar'
+    | 'Sumapaz';
   neighborhood: string;
   address: string;
   description?: string | null;
@@ -400,18 +420,6 @@ export interface User {
   loginAttempts?: number | null;
   lockUntil?: string | null;
   password?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "localities".
- */
-export interface Locality {
-  id: number;
-  code: number;
-  name: string;
-  isVisible: boolean;
-  updatedAt: string;
-  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -605,6 +613,18 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "localities".
+ */
+export interface Locality {
+  id: number;
+  code: number;
+  name: string;
+  isVisible: boolean;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "services".
  */
 export interface Service {
@@ -651,7 +671,27 @@ export interface OperationUnit {
     image?: (number | null) | Media;
     description?: string | null;
   };
-  Localidad: number | Locality;
+  locality:
+    | 'Usaquén'
+    | 'Chapinero'
+    | 'Santa Fe'
+    | 'San Cristóbal'
+    | 'Usme'
+    | 'Tunjuelito'
+    | 'Bosa'
+    | 'Kennedy'
+    | 'Fontibón'
+    | 'Engativá'
+    | 'Suba'
+    | 'Barrios Unidos'
+    | 'Teusaquillo'
+    | 'Los Mártires'
+    | 'Antonio Nariño'
+    | 'Puente Aranda'
+    | 'La Candelaria'
+    | 'Rafael Uribe Uribe'
+    | 'Ciudad Bolívar'
+    | 'Sumapaz';
   neighborhood: string;
   address: string;
   latitude: number;

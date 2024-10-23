@@ -25,6 +25,7 @@ import {
   PreviewField,
 } from '@payloadcms/plugin-seo/fields'
 import { slugField } from '@/fields/slug'
+import { localitiesSelect } from '@/fields/localitiesSelect'
 
 export const OperationUnits: CollectionConfig = {
   slug: 'operationUnits',
@@ -115,13 +116,7 @@ export const OperationUnits: CollectionConfig = {
             {
               type: 'row',
               fields: [
-                {
-                  type: 'relationship',
-                  relationTo: 'localities',
-                  name: 'Localidad',
-                  hasMany: false,
-                  required: true,
-                },
+                localitiesSelect(),
                 {
                   type: 'text',
                   name: 'neighborhood',
